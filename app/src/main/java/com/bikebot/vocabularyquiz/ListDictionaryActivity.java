@@ -33,8 +33,9 @@ public class ListDictionaryActivity extends Activity {
         LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
         for (Word w : words) {
 
-            TextView row = new TextView(getApplicationContext());
-            row.setText(w.nativeWord);
+            ListDictionaryElement row = new ListDictionaryElement(getApplicationContext());
+            row.setForeignWord(w.nativeWord);
+            row.setTranslatedWord(w.translatedWord);
             wordList.addView(row);
         }
     }
