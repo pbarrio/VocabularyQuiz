@@ -1,0 +1,31 @@
+<resources>
+    <!--TODO: set different titles for each screen -->
+    <string name="app_name">Vocabulary quiz</string>
+
+    <!-- Immutable text boxes -->
+    <string name="foreign_word_challenge">What is the meaning of this word?</string>
+    <string name="title_activity_config_options">Configuration</string>
+
+    <!-- Button labels -->
+    <string name="check_answer">Check answer</string>
+    <string name="delete_db">Cleanup database</string>
+    <string name="goto_add_word">Add word to dictionary</string>
+    <string name="goto_config">Options</string>
+    <string name="goto_quiz">Quiz</string>
+    <string name="goto_results">Finish quiz</string>
+    <string name="goto_view_dict">My dictionary</string>
+    <string name="next_word">Next word</string>
+
+    <!-- Intent parameters -->
+    <string name="param_error">error_msg</string>
+    <string name="param_n_correct">n_correct</string>
+    <string name="param_n_incorrect">n_incorrect</string>
+
+    <!-- Error & info messages -->
+    <string name="error_empty_dict">Dictionary empty. Please add some words first.</string>
+    <string name="info_word_saved">Word saved! Now add another word.</string>
+    <string name="info_correct">Correct!</string>
+    <string name="info_incorrect">Wrong answer :(\nThe meaning of %1$s is %2$s.</string>
+    <string name="info_quiz_result">You answered a total of %1$d questions, of which %2$d were correct.\nYou scored %3$.0f%%</string>
+    <string name="title_activity_list_dictionary">ListDictionaryActivity</string>
+</resources>
