@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.ContextThemeWrapper;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -33,7 +34,8 @@ public class ListDictionaryActivity extends Activity {
         LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
         for (Word w : words) {
 
-            ListDictionaryElement row = new ListDictionaryElement(getApplicationContext());
+            ListDictionaryElement row = new ListDictionaryElement(
+                    new ContextThemeWrapper(getApplicationContext(), R.style.AppTheme));
             row.setForeignWord(w.nativeWord);
             row.setTranslatedWord(w.translatedWord);
             wordList.addView(row);
