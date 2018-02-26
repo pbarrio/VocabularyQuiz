@@ -6,10 +6,17 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ListDictionaryElement extends RelativeLayout{
+/**
+ * One element in the dictionary viewer
+ *
+ * @author Pablo Barrio
+ */
+
+public class ListDictionaryElement extends RelativeLayout {
 
     protected static final int FOREIGN_WORD_ID = 10000;
 
+    Word word;
     protected TextView foreignWord;
     protected TextView translatedWord;
 
@@ -25,7 +32,7 @@ public class ListDictionaryElement extends RelativeLayout{
         );
         this.setLayoutParams(layout);
 
-        // Layout of the first sub-element with respect to the parent element
+        // Layout of the first sub-element to the right of the parent element
         foreignWord = new TextView(context);
         foreignWord.setId(FOREIGN_WORD_ID);
         RelativeLayout.LayoutParams layout1 = new RelativeLayout.LayoutParams(
@@ -57,8 +64,12 @@ public class ListDictionaryElement extends RelativeLayout{
         this.addView(deleteButton);
     }
 
-    public void setForeignWord(String w) { foreignWord.setText(w); }
+    public void setWord(Word w) {
 
-    // TODO: do not concatenate string. Use resource string with placeholders.
-    public void setTranslatedWord(String w) { translatedWord.setText("(" + w + ")"); }
+        word = w;
+        foreignWord.setText(w.nativeWord);
+
+        // TODO: do not concatenate string. Use resource string with placeholders.
+        translatedWord.setText("(" + w.translatedWord + ")"); }
+    }
 }
