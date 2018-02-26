@@ -1,6 +1,8 @@
 package com.bikebot.vocabularyquiz;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 public class ListDictionaryElement extends RelativeLayout {
 
     protected static final int FOREIGN_WORD_ID = 10000;
+
+    DBAccessor dba;
 
     Word word;
     protected TextView foreignWord;
@@ -54,14 +58,21 @@ public class ListDictionaryElement extends RelativeLayout {
         translatedWord.setLayoutParams(layout2);
         this.addView(translatedWord);
 
+        // Layout of the right-most element
         Button deleteButton = new Button(context);
+        deleteButton.setText(R.string.delete);
         RelativeLayout.LayoutParams deleteButtonLayout = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
         deleteButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         deleteButton.setLayoutParams(deleteButtonLayout);
+        deleteButton.setOnClickListener(new DeleteListener());
         this.addView(deleteButton);
+
+        dba = Room.databaseBuilder(
+                context, VocabularyDB.class, "vocabulary-db"
+        ).allowMainThreadQueries().build().getDBAccessor();
     }
 
     public void setWord(Word w) {
@@ -71,5 +82,12 @@ public class ListDictionaryElement extends RelativeLayout {
 
         // TODO: do not concatenate string. Use resource string with placeholders.
         translatedWord.setText("(" + w.translatedWord + ")"); }
+    }
+
+    class DeleteListener implements View.OnClickListener {
+
+        public void onClick(View v) {
+            dba.deleteWord(word);
+        }
     }
 }

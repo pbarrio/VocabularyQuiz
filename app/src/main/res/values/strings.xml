@@ -9,6 +9,7 @@
     <!-- Button labels -->
     <string name="check_answer">Check answer</string>
     <string name="delete_db">Cleanup database</string>
+    <string name="delete">Delete</string>
     <string name="goto_add_word">Add word to dictionary</string>
     <string name="goto_config">Options</string>
     <string name="goto_quiz">Quiz</string>
