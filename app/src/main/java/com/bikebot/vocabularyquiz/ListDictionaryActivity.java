@@ -31,13 +31,13 @@ public class ListDictionaryActivity extends Activity {
             return;
         }
 
+        // TODO: the word list doesn't scroll
         LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
         for (Word w : words) {
 
             ListDictionaryElement row = new ListDictionaryElement(
                     new ContextThemeWrapper(getApplicationContext(), R.style.AppTheme));
-            row.setForeignWord(w.nativeWord);
-            row.setTranslatedWord(w.translatedWord);
+            row.setWord(w);
             wordList.addView(row);
         }
     }
