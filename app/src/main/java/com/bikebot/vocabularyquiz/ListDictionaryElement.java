@@ -2,9 +2,8 @@ package com.bikebot.vocabularyquiz;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,15 +13,16 @@ import android.widget.TextView;
  * @author Pablo Barrio
  */
 
-public class ListDictionaryElement extends RelativeLayout {
+public class ListDictionaryElement extends RelativeLayout{
 
     protected static final int FOREIGN_WORD_ID = 10000;
 
-    DBAccessor dba;
+    protected DBAccessor dba;
 
-    Word word;
+    protected Word word;
     protected TextView foreignWord;
     protected TextView translatedWord;
+    protected CheckBox select;
 
     public ListDictionaryElement(Context context) {
 
@@ -58,18 +58,17 @@ public class ListDictionaryElement extends RelativeLayout {
         translatedWord.setLayoutParams(layout2);
         this.addView(translatedWord);
 
-        // Layout of the right-most element
-        Button deleteButton = new Button(context);
-        deleteButton.setText(R.string.delete);
-        RelativeLayout.LayoutParams deleteButtonLayout = new RelativeLayout.LayoutParams(
+        // Layout of the tick box
+        select = new CheckBox(context);
+        RelativeLayout.LayoutParams selectLayout = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        deleteButtonLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        deleteButton.setLayoutParams(deleteButtonLayout);
-        deleteButton.setOnClickListener(new DeleteListener());
-        this.addView(deleteButton);
+        selectLayout.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        select.setLayoutParams(selectLayout);
+        this.addView(select);
 
+        // TODO: do not allow main thread queries
         dba = Room.databaseBuilder(
                 context, VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
@@ -81,13 +80,10 @@ public class ListDictionaryElement extends RelativeLayout {
         foreignWord.setText(w.nativeWord);
 
         // TODO: do not concatenate string. Use resource string with placeholders.
-        translatedWord.setText("(" + w.translatedWord + ")"); }
+        translatedWord.setText(getResources().getString(R.string.translated_word_in_list_dict, w.translatedWord));
     }
 
-    class DeleteListener implements View.OnClickListener {
+    public Word getWord() {return word;}
 
-        public void onClick(View v) {
-            dba.deleteWord(word);
-        }
-    }
+    public boolean isSelected() {return select.isChecked();}
 }

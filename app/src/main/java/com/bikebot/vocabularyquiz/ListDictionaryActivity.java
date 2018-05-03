@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 public class ListDictionaryActivity extends Activity {
 
@@ -31,7 +30,6 @@ public class ListDictionaryActivity extends Activity {
             return;
         }
 
-        // TODO: the word list doesn't scroll
         LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
         for (Word w : words) {
 
@@ -39,6 +37,24 @@ public class ListDictionaryActivity extends Activity {
                     new ContextThemeWrapper(getApplicationContext(), R.style.AppTheme));
             row.setWord(w);
             wordList.addView(row);
+        }
+    }
+
+    public void deleteSelectedElements(View view) {
+
+        LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
+        DBAccessor dba = Room.databaseBuilder(
+                wordList.getContext(), VocabularyDB.class, "vocabulary-db"
+        ).allowMainThreadQueries().build().getDBAccessor();
+
+        for (int iRow = 0; iRow < wordList.getChildCount(); iRow++) {
+
+            ListDictionaryElement r = (ListDictionaryElement) wordList.getChildAt(iRow);
+            if (r.isSelected()) {
+                wordList.removeView(r);
+                dba.deleteWord(r.getWord());
+                iRow--;
+            }
         }
     }
 }
