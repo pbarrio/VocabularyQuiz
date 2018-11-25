@@ -77,10 +77,10 @@ public class ListDictionaryElement extends RelativeLayout{
     public void setWord(Word w) {
 
         word = w;
-        foreignWord.setText(w.nativeWord);
+        foreignWord.setText(w.learntWord);
 
         // TODO: do not concatenate string. Use resource string with placeholders.
-        translatedWord.setText(getResources().getString(R.string.translated_word_in_list_dict, w.translatedWord));
+        translatedWord.setText(getResources().getString(R.string.translated_word_in_list_dict, w.translation));
     }
 
     public Word getWord() {return word;}
