@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.util.Arrays;
+
 public class ListDictionaryActivity extends Activity {
 
     private View selectedItem;
@@ -26,9 +28,9 @@ public class ListDictionaryActivity extends Activity {
 
         /* TODO: this functionality is duplicated in several classes. Create a superclass to access
            the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
-        // TODO: sort the words in alphabetical order
         // TODO: show header with the current letter in the sorted list
         Word[] words = dba.getAllWords();
+        Arrays.sort(words);
 
         if (words.length == 0) {
             Intent intent = new Intent(this, ErrorMsgActivity.class);

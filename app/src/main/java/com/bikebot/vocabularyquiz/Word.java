@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
  */
 
 @Entity
-public class Word {
+public class Word implements Comparable<Word>{
 
     /*
         TODO: find a consistent naming for the word in one language and in another. Possibly need to
@@ -36,5 +36,9 @@ public class Word {
         this.translation = translation;
         this.timesWrong = 0;
         this.timesRight = 0;
+    }
+
+    public int compareTo(Word word) {
+        return this.learntWord.compareTo(word.learntWord);
     }
 }
