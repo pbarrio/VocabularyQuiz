@@ -14,10 +14,25 @@
         tools:layout_editor_absoluteY="8dp">
 
         <Button
+            android:id="@+id/button9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="gotoListConfigOptions"
+            android:text="@string/view_options" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="changeLanguage"
+            android:text="@string/change_language" />
+
+        <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="deleteDB"
             android:text="@string/delete_db" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

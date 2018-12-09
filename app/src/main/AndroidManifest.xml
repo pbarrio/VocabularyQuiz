@@ -26,7 +26,10 @@
         <activity android:name=".ResultsActivity" />
         <activity
             android:name=".ListDictionaryActivity"
-            android:label="@string/title_activity_list_dictionary"></activity>
+            android:label="@string/title_activity_list_dictionary" />
+        <activity
+            android:name=".ListConfigOptionsActivity"
+            android:label="@string/title_activity_list_config_options"></activity>
     </application>
 
 </manifest>

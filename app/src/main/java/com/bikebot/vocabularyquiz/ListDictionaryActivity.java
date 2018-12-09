@@ -4,11 +4,16 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.ContextMenu;
 import android.view.ContextThemeWrapper;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 public class ListDictionaryActivity extends Activity {
+
+    private View selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +24,12 @@ public class ListDictionaryActivity extends Activity {
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
 
-        // TODO: this functionality is duplicated in several classes. Create a superclass to access
-        // the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor.
+        /* TODO: this functionality is duplicated in several classes. Create a superclass to access
+           the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
+        // TODO: sort the words in alphabetical order
+        // TODO: show header with the current letter in the sorted list
         Word[] words = dba.getAllWords();
+
         if (words.length == 0) {
             Intent intent = new Intent(this, ErrorMsgActivity.class);
             intent.putExtra(getString(R.string.param_error), getString(R.string.error_empty_dict));
@@ -38,6 +46,7 @@ public class ListDictionaryActivity extends Activity {
             row.setWord(w);
             wordList.addView(row);
         }
+        registerForContextMenu(wordList);
     }
 
     public void deleteSelectedElements(View view) {
@@ -56,5 +65,27 @@ public class ListDictionaryActivity extends Activity {
                 iRow--;
             }
         }
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View view,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, view, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.wordlist_item, menu);
+        selectedItem = view;
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+
+        LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
+        switch (item.getItemId()) {
+            case R.id.delete_button:
+                wordList.removeView(selectedItem);
+                return true;
+            case R.id.modify_button:
+                return true;
+        }
+        return super.onContextItemSelected(item);
     }
 }

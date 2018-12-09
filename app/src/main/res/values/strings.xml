@@ -16,6 +16,8 @@
     <string name="goto_results">Finish quiz</string>
     <string name="goto_view_dict">My dictionary</string>
     <string name="next_word">Next word</string>
+    <string name="change_language">Change language</string>
+    <string name="view_options">View current options</string>
 
     <!-- Intent parameters -->
     <string name="param_error">error_msg</string>
@@ -30,7 +32,11 @@
     <string name="info_quiz_result">You answered a total of %1$d questions, of which %2$d were correct.\nYou scored %3$.0f%%</string>
     <string name="title_activity_list_dictionary">ListDictionaryActivity</string>
 
+    <!-- App option names -->
+    <string name="language_learnt">Language being learned</string>
+
     <!-- Others -->
     <string name="translated_word_in_list_dict">(%1$s)</string>
+    <string name="title_activity_list_config_options">ListConfigOptionsActivity</string>
 
 </resources>

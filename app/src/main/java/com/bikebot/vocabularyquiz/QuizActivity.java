@@ -37,6 +37,9 @@ public class QuizActivity extends Activity {
             return;
         }
 
+        // TODO: create test beforehand with a fixed number of questions
+        // TODO: pick up words that have been failed more frequently - this should help learn them
+
         correct = 0;
         incorrect = 0;
         askWord();
@@ -53,10 +56,11 @@ public class QuizActivity extends Activity {
 
         chosen = words[rand.nextInt(words.length)];
         TextView foreignWord = (TextView) findViewById(R.id.foreignWord);
-        foreignWord.setText(chosen.nativeWord);
+        foreignWord.setText(chosen.learntWord);
         isCurrentWordChecked = false;
     }
 
+    // TODO: update failures and successes in the words themselves for later use
     public void checkWord(View view) {
 
         if (isCurrentWordChecked)
@@ -65,7 +69,7 @@ public class QuizActivity extends Activity {
         EditText answerBox = (EditText) findViewById(R.id.answer);
         TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
-        String translation = chosen.translatedWord;
+        String translation = chosen.translation;
         isCurrentWordChecked = true;
         if (translation.equals(answerBox.getText().toString())) {
             cmpCheck.setText(getText(R.string.info_correct));
@@ -73,7 +77,7 @@ public class QuizActivity extends Activity {
         } else {
             cmpCheck.setText(getResources().getString(
                     R.string.info_incorrect,
-                    chosen.nativeWord,
+                    chosen.learntWord,
                     translation
             ));
             ++incorrect;

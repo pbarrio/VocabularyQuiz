@@ -20,13 +20,21 @@ public class Word {
 
     @PrimaryKey
     @NonNull
-    public String nativeWord;
+    public String learntWord; // The word in the language we are learning
 
     @ColumnInfo
-    public String translatedWord;
+    public String translation; // The word in the language we know
 
-    public Word(String nativeWord, String translatedWord) {
-        this.nativeWord = nativeWord;
-        this.translatedWord = translatedWord;
+    @ColumnInfo
+    public int timesWrong; // #times the word was answered wrong in a quiz
+
+    @ColumnInfo
+    public int timesRight; // #times the word was answered right in a quiz
+
+    public Word(String learntWord, String translation) {
+        this.learntWord = learntWord;
+        this.translation = translation;
+        this.timesWrong = 0;
+        this.timesRight = 0;
     }
 }
