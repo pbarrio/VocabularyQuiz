@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.Random;
 
 public class QuizActivity extends Activity {
+
+    private static final int NWORDS = 10; // Number of words in a test
 
     private static Random rand = new Random();
     private Word[] words;
@@ -29,16 +32,19 @@ public class QuizActivity extends Activity {
         ).allowMainThreadQueries().build().getDBAccessor();
 
         words = dba.getAllWords();
-        if (words.length == 0) {
+        if (words.length < QuizActivity.NWORDS) {
             Intent intent = new Intent(this, ErrorMsgActivity.class);
-            intent.putExtra(getString(R.string.param_error), getString(R.string.error_empty_dict));
+            intent.putExtra(
+                    getString(R.string.param_error),
+                    getString(R.string.error_empty_dict, QuizActivity.NWORDS)
+            );
             startActivity(intent);
             finish();
             return;
         }
 
-        // TODO: create test beforehand with a fixed number of questions
         // TODO: pick up words that have been failed more frequently - this should help learn them
+        // TODO: force the test to have a fixed number of questions
 
         correct = 0;
         incorrect = 0;
