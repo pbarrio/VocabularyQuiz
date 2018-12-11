@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 /**
  * Created by pablo on 10/02/18.
@@ -19,19 +20,22 @@ public interface DBAccessor {
     @Insert
     public void insertNewWord(Word w);
 
+    @Update
+    public void updateWord(Word word);
+
+    @Delete()
+    public void deleteWord(Word word);
+
     @Query("SELECT * FROM Word")
     public Word[] getAllWords();
 
     @Query("DELETE FROM Word")
     public void deleteAllWords();
 
-    @Delete()
-    public void deleteWord(Word word);
-
     /*
      * Configuration table
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE )
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertConfigOption(ConfigOption c);
 
     @Query("SELECT * FROM ConfigOption")

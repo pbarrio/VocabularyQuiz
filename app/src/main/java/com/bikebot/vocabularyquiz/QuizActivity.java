@@ -19,16 +19,18 @@ public class QuizActivity extends Activity {
 
     private static Random rand = new Random();
 
-    private Iterator<Word> words_it;
-    Word current_word;
-    private int correct, incorrect; // Score
+    DBAccessor dba;
 
+    private Set<Word> words;
+    private Iterator<Word> wordsIt;
+    private Word current_word;
+    private int correct, incorrect; // Score
     private boolean isCurrentWordChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        DBAccessor dba = Room.databaseBuilder(
+        dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
 
@@ -51,13 +53,13 @@ public class QuizActivity extends Activity {
         // TODO: pick up words that have been failed more frequently - this should help learn them
 
         // Pre-populate test to make sure words are not repeated
-        Set<Word> words = new HashSet<Word>();
+        words = new HashSet<Word>();
         while (words.size() < QuizActivity.NWORDS)
             words.add(allWords[rand.nextInt(allWords.length)]);
 
         correct = 0;
         incorrect = 0;
-        words_it = words.iterator();
+        wordsIt = words.iterator();
         askWord();
     }
 
@@ -69,12 +71,12 @@ public class QuizActivity extends Activity {
     protected void askWord() {
 
         // Check if the test has finished
-        if (! words_it.hasNext()) {
+        if (! wordsIt.hasNext()) {
             gotoResultsActivity();
             return;
         }
 
-        current_word = words_it.next();
+        current_word = wordsIt.next();
 
         TextView cmpCheckMsg = (TextView) findViewById(R.id.cmpCheckMsg);
         EditText answer = (EditText) findViewById(R.id.answer);
@@ -101,6 +103,7 @@ public class QuizActivity extends Activity {
         if (translation.equals(answerBox.getText().toString())) {
             cmpCheck.setText(getText(R.string.info_correct));
             ++correct;
+            current_word.timesRight++;
         } else {
             cmpCheck.setText(getResources().getString(
                     R.string.info_incorrect,
@@ -108,6 +111,7 @@ public class QuizActivity extends Activity {
                     translation
             ));
             ++incorrect;
+            current_word.timesWrong++;
         }
         isCurrentWordChecked = true;
     }
@@ -115,6 +119,12 @@ public class QuizActivity extends Activity {
     public void gotoResultsActivity(View view) {gotoResultsActivity();}
 
     public void gotoResultsActivity() {
+
+        // Update words in the DB
+        wordsIt = words.iterator();
+        while (wordsIt.hasNext())
+            dba.updateWord(wordsIt.next());
+
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(getString(R.string.param_n_correct), correct);
         intent.putExtra(getString(R.string.param_n_incorrect), incorrect);

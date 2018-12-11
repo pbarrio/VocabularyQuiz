@@ -16,12 +16,14 @@ import android.widget.TextView;
 public class ListDictionaryElement extends RelativeLayout{
 
     protected static final int FOREIGN_WORD_ID = 10000;
+    protected static final int TRANSLATED_WORD_ID = 10001;
 
     protected DBAccessor dba;
 
     protected Word word;
     protected TextView foreignWord;
     protected TextView translatedWord;
+    protected TextView additionalData;
     protected CheckBox select;
 
     public ListDictionaryElement(Context context) {
@@ -36,7 +38,7 @@ public class ListDictionaryElement extends RelativeLayout{
         );
         this.setLayoutParams(layout);
 
-        // Layout of the first sub-element to the right of the parent element
+        // Layout of the first element (learnt word)
         foreignWord = new TextView(context);
         foreignWord.setId(FOREIGN_WORD_ID);
         RelativeLayout.LayoutParams layout1 = new RelativeLayout.LayoutParams(
@@ -47,8 +49,9 @@ public class ListDictionaryElement extends RelativeLayout{
         foreignWord.setLayoutParams(layout1);
         this.addView(foreignWord);
 
-        // Layout of the sub-elements next to the first one
+        // Layout of the translation
         translatedWord = new TextView(context);
+        translatedWord.setId(TRANSLATED_WORD_ID);
         RelativeLayout.LayoutParams layout2 = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
@@ -57,6 +60,17 @@ public class ListDictionaryElement extends RelativeLayout{
         layout2.leftMargin = 30;
         translatedWord.setLayoutParams(layout2);
         this.addView(translatedWord);
+
+        // Layout of the additional word information
+        additionalData = new TextView(context);
+        RelativeLayout.LayoutParams layout3 = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layout3.addRule(RelativeLayout.RIGHT_OF, TRANSLATED_WORD_ID);
+        layout3.leftMargin = 30;
+        additionalData.setLayoutParams(layout3);
+        this.addView(additionalData);
 
         // Layout of the tick box
         select = new CheckBox(context);
@@ -77,10 +91,16 @@ public class ListDictionaryElement extends RelativeLayout{
     public void setWord(Word w) {
 
         word = w;
-        foreignWord.setText(w.learntWord);
-
-        // TODO: do not concatenate string. Use resource string with placeholders.
-        translatedWord.setText(getResources().getString(R.string.translated_word_in_list_dict, w.translation));
+        foreignWord.setText(word.learntWord);
+        translatedWord.setText(getResources().getString(
+                R.string.translated_word_in_list_dict,
+                word.translation
+        ));
+        additionalData.setText(getResources().getString(
+                R.string.additional_word_data,
+                word.timesRight,
+                word.timesWrong
+        ));
     }
 
     public Word getWord() {return word;}

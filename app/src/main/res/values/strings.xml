@@ -2,6 +2,10 @@
     <!--TODO: set different titles for each screen -->
     <string name="app_name">Vocabulary quiz</string>
 
+    <!-- Activity titles -->
+    <string name="title_activity_list_config_options">ListConfigOptionsActivity</string>
+    <string name="title_activity_list_dictionary">ListDictionaryActivity</string>
+
     <!-- Immutable text boxes -->
     <string name="foreign_word_challenge">What is the meaning of this word?</string>
     <string name="title_activity_config_options">Configuration</string>
@@ -36,7 +40,6 @@
 
     <!-- Others -->
     <string name="translated_word_in_list_dict">(%1$s)</string>
-    <string name="title_activity_list_config_options">ListConfigOptionsActivity</string>
-    <string name="title_activity_list_dictionary">ListDictionaryActivity</string>
+    <string name="additional_word_data">- %1$d right, %2$d wrong</string>
 
 </resources>
