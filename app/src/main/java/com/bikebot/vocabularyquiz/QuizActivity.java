@@ -8,32 +8,36 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 public class QuizActivity extends Activity {
 
     private static final int NWORDS = 10; // Number of words in a test
 
     private static Random rand = new Random();
-    private Word[] words;
-    private Word chosen;
 
-    // Score-related
-    private int correct, incorrect;
+    private Iterator<Word> words_it;
+    Word current_word;
+    private int correct, incorrect; // Score
+
     private boolean isCurrentWordChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
-
         DBAccessor dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
 
-        words = dba.getAllWords();
-        if (words.length < QuizActivity.NWORDS) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_quiz);
+
+        Word[] allWords = dba.getAllWords();
+        if (allWords.length < QuizActivity.NWORDS) {
+
             Intent intent = new Intent(this, ErrorMsgActivity.class);
             intent.putExtra(
                     getString(R.string.param_error),
@@ -46,8 +50,14 @@ public class QuizActivity extends Activity {
 
         // TODO: pick up words that have been failed more frequently - this should help learn them
 
+        // Pre-populate test to make sure words are not repeated
+        Set<Word> words = new HashSet<Word>();
+        while (words.size() < QuizActivity.NWORDS)
+            words.add(allWords[rand.nextInt(allWords.length)]);
+
         correct = 0;
         incorrect = 0;
+        words_it = words.iterator();
         askWord();
     }
 
@@ -55,20 +65,21 @@ public class QuizActivity extends Activity {
 
     protected void askWord() {
 
-        // Make sure that the test has a fixed length
-        if (correct + incorrect >= QuizActivity.NWORDS) {
+        // Check if the test has finished
+        if (! words_it.hasNext()) {
             gotoResultsActivity();
             return;
         }
+
+        current_word = words_it.next();
 
         TextView cmpCheckMsg = (TextView) findViewById(R.id.cmpCheckMsg);
         EditText answer = (EditText) findViewById(R.id.answer);
         cmpCheckMsg.setText("");
         answer.setText("");
 
-        chosen = words[rand.nextInt(words.length)];
         TextView foreignWord = (TextView) findViewById(R.id.foreignWord);
-        foreignWord.setText(chosen.learntWord);
+        foreignWord.setText(current_word.learntWord);
         isCurrentWordChecked = false;
     }
 
@@ -81,19 +92,19 @@ public class QuizActivity extends Activity {
         EditText answerBox = (EditText) findViewById(R.id.answer);
         TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
-        String translation = chosen.translation;
-        isCurrentWordChecked = true;
+        String translation = current_word.translation;
         if (translation.equals(answerBox.getText().toString())) {
             cmpCheck.setText(getText(R.string.info_correct));
             ++correct;
         } else {
             cmpCheck.setText(getResources().getString(
                     R.string.info_incorrect,
-                    chosen.learntWord,
+                    current_word.learntWord,
                     translation
             ));
             ++incorrect;
         }
+        isCurrentWordChecked = true;
     }
 
     public void gotoResultsActivity(View view) {gotoResultsActivity();}
