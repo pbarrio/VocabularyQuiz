@@ -61,7 +61,10 @@ public class QuizActivity extends Activity {
         askWord();
     }
 
-    public void askWord(View view) { askWord(); }
+    public void askWord(View view) {
+        checkWord();
+        askWord();
+    }
 
     protected void askWord() {
 
@@ -83,8 +86,10 @@ public class QuizActivity extends Activity {
         isCurrentWordChecked = false;
     }
 
+    public void checkWord(View view) { checkWord(); }
+
     // TODO: update failures and successes in the words themselves for later use
-    public void checkWord(View view) {
+    private void checkWord() {
 
         if (isCurrentWordChecked)
             return;
