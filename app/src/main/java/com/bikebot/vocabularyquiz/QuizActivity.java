@@ -24,6 +24,7 @@ public class QuizActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
@@ -44,7 +45,6 @@ public class QuizActivity extends Activity {
         }
 
         // TODO: pick up words that have been failed more frequently - this should help learn them
-        // TODO: force the test to have a fixed number of questions
 
         correct = 0;
         incorrect = 0;
@@ -53,7 +53,13 @@ public class QuizActivity extends Activity {
 
     public void askWord(View view) { askWord(); }
 
-    public void askWord() {
+    protected void askWord() {
+
+        // Make sure that the test has a fixed length
+        if (correct + incorrect >= QuizActivity.NWORDS) {
+            gotoResultsActivity();
+            return;
+        }
 
         TextView cmpCheckMsg = (TextView) findViewById(R.id.cmpCheckMsg);
         EditText answer = (EditText) findViewById(R.id.answer);
@@ -90,7 +96,9 @@ public class QuizActivity extends Activity {
         }
     }
 
-    public void gotoResultsActivity(View view) {
+    public void gotoResultsActivity(View view) {gotoResultsActivity();}
+
+    public void gotoResultsActivity() {
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(getString(R.string.param_n_correct), correct);
         intent.putExtra(getString(R.string.param_n_incorrect), incorrect);
