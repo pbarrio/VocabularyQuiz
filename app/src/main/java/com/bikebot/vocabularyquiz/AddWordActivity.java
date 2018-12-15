@@ -3,6 +3,7 @@ package com.bikebot.vocabularyquiz;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.app.Activity;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -30,10 +31,15 @@ public class AddWordActivity extends Activity {
         EditText meaning = (EditText)findViewById(R.id.meaning);
         TextView infoMsg = (TextView) findViewById(R.id.info_msg);
 
-        dba.insertNewWord(new Word(
-                word.getText().toString(),
-                meaning.getText().toString()));
-        infoMsg.setText(getString(R.string.info_word_saved));
+        try {
+            dba.insertNewWord(new Word(
+                    word.getText().toString(),
+                    meaning.getText().toString()));
+            infoMsg.setText(getString(R.string.info_word_saved));
+        }
+        catch (SQLiteConstraintException e) {
+            infoMsg.setText(getString(R.string.info_word_exists));
+        }
 
         // Prepare for next word
         word.setText("");
