@@ -41,6 +41,6 @@
 
     <!-- Others -->
     <string name="translated_word_in_list_dict">(%1$s)</string>
-    <string name="additional_word_data">- %1$d right, %2$d wrong</string>
+    <string name="additional_word_data">- %1$d%% correct</string>
 
 </resources>

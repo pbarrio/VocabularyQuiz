@@ -96,10 +96,16 @@ public class ListDictionaryElement extends RelativeLayout{
                 R.string.translated_word_in_list_dict,
                 word.translation
         ));
+
+        // Info about how many times the word was answered correctly
+        int percentRight = 0;
+        try {
+            percentRight = word.timesRight * 100 / (word.timesRight + word.timesWrong);
+        }
+        catch (ArithmeticException e) {}
         additionalData.setText(getResources().getString(
                 R.string.additional_word_data,
-                word.timesRight,
-                word.timesWrong
+                percentRight
         ));
     }
 
