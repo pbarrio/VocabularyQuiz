@@ -98,14 +98,9 @@ public class ListDictionaryElement extends RelativeLayout{
         ));
 
         // Info about how many times the word was answered correctly
-        int percentRight = 0;
-        try {
-            percentRight = word.timesRight * 100 / (word.timesRight + word.timesWrong);
-        }
-        catch (ArithmeticException e) {}
         additionalData.setText(getResources().getString(
                 R.string.additional_word_data,
-                percentRight
+                word.getPercentageCorrect()
         ));
     }
 

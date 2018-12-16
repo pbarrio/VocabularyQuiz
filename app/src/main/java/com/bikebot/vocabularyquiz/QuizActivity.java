@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -51,12 +52,12 @@ public class QuizActivity extends Activity {
             return;
         }
 
-        // TODO: pick up words that have been failed more frequently - this should help learn them
+        Arrays.sort(allWords, new Word.CorrectnessComparator());
 
         // Pre-populate test to make sure words are not repeated
         words = new HashSet<Word>();
-        while (words.size() < QuizActivity.NWORDS)
-            words.add(allWords[rand.nextInt(allWords.length)]);
+        for (int i = 0; words.size() < QuizActivity.NWORDS && i < allWords.length; ++i)
+            words.add(allWords[i]);
 
         correct = 0;
         incorrect = 0;

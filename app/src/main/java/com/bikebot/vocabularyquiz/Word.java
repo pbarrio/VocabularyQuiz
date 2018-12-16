@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Comparator;
+
 /**
  * Created by pablo on 10/02/18.
  */
@@ -40,5 +42,20 @@ public class Word implements Comparable<Word>{
 
     public int compareTo(Word word) {
         return this.learntWord.compareTo(word.learntWord);
+    }
+
+    public int getPercentageCorrect() {
+        try {
+            return timesRight * 100 / (timesRight + timesWrong);
+        }
+        catch (ArithmeticException e) {
+            return 0;
+        }
+    }
+
+    static class CorrectnessComparator implements Comparator<Word> {
+        public int compare(Word a, Word b) {
+            return a.getPercentageCorrect() - b.getPercentageCorrect();
+        }
     }
 }
