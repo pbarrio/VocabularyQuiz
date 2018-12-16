@@ -26,8 +26,7 @@ public class AddWordActivity extends Activity {
 
     public void saveWord(View view) {
 
-        // TODO: style: don't use camelCase in resources. Use undrescores, such as info_msg
-        EditText word = (EditText)findViewById(R.id.learntWord);
+        EditText word = (EditText)findViewById(R.id.learnt_word);
         EditText meaning = (EditText)findViewById(R.id.meaning);
         TextView infoMsg = (TextView) findViewById(R.id.info_msg);
 
