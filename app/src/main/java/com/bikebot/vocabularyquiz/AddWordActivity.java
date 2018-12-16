@@ -34,10 +34,11 @@ public class AddWordActivity extends Activity {
             dba.insertNewWord(new Word(
                     word.getText().toString(),
                     meaning.getText().toString()));
-            // TODO: show this message as a pop-up instead of in a text box
+            // TODO: display result message in a "Snackbar" instead of a text field
             infoMsg.setText(getString(R.string.info_word_saved));
         }
         catch (SQLiteConstraintException e) {
+            // TODO: display result message in a "Snackbar" instead of a text field
             infoMsg.setText(getString(R.string.info_word_exists));
         }
 

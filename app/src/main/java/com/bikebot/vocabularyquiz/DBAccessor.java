@@ -41,6 +41,6 @@ public interface DBAccessor {
     @Query("SELECT * FROM ConfigOption")
     public ConfigOption[] getAllConfigOptions();
 
-    @Query("SELECT value FROM ConfigOption WHERE option = :option_name")
-    public String getConfigOption(String option_name);
+    @Query("SELECT value FROM ConfigOption WHERE option = :optionName")
+    public String getConfigOption(String optionName);
 }

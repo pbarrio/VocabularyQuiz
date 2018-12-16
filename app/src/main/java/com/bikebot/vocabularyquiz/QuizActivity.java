@@ -101,10 +101,12 @@ public class QuizActivity extends Activity {
 
         String translation = current_word.translation;
         if (translation.equals(answerBox.getText().toString())) {
+            // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getText(R.string.info_correct));
             ++correct;
             current_word.timesRight++;
         } else {
+            // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getResources().getString(
                     R.string.info_incorrect,
                     current_word.learntWord,
