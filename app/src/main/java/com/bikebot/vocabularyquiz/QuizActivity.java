@@ -30,6 +30,7 @@ public class QuizActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // TODO: allow changing the type of test (from native to translated or vice-versa)
         dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
@@ -90,7 +91,6 @@ public class QuizActivity extends Activity {
 
     public void checkWord(View view) { checkWord(); }
 
-    // TODO: update failures and successes in the words themselves for later use
     private void checkWord() {
 
         if (isCurrentWordChecked)

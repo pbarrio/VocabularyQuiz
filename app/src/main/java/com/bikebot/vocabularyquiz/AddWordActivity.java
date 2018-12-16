@@ -34,6 +34,7 @@ public class AddWordActivity extends Activity {
             dba.insertNewWord(new Word(
                     word.getText().toString(),
                     meaning.getText().toString()));
+            // TODO: show this message as a pop-up instead of in a text box
             infoMsg.setText(getString(R.string.info_word_saved));
         }
         catch (SQLiteConstraintException e) {
