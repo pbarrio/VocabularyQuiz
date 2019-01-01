@@ -29,6 +29,7 @@ public class ListDictionaryActivity extends Activity {
         /* TODO: this functionality is duplicated in several classes. Create a superclass to access
            the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
         // TODO: show header with the current letter in the sorted list
+        // TODO: alphabetical sort should be case-insensitive
         Word[] words = dba.getAllWords();
         Arrays.sort(words);
 
@@ -81,6 +82,7 @@ public class ListDictionaryActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
 
         LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_dict);
+        //TODO: finish logic and remove other ways of delete the words
         switch (item.getItemId()) {
             case R.id.delete_button:
                 wordList.removeView(selectedItem);

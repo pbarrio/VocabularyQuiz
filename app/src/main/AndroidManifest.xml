@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bikebot.vocabularyquiz">
 
-    <!-- TODO: make a proper launcher -->
     <!-- TODO: think of a proper name -->
     <application
         android:allowBackup="true"
