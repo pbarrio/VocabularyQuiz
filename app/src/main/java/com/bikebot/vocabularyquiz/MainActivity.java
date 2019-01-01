@@ -8,16 +8,30 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
+    DBAccessor dba;
+
+    private void resetTitle () {
+        String title = getTitle().toString();
+        String language = dba.getConfigOption(getString(R.string.language_learnt));
+        if (language != null)
+            setTitle(title + " - " + language);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBAccessor dba = Room.databaseBuilder(
+        dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
-        String title = getTitle().toString();
-        setTitle(title + " - " + dba.getConfigOption(getString(R.string.language_learnt)));
+
+        resetTitle();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        resetTitle();
     }
 
     public void gotoAddWord(View view) {
@@ -32,7 +46,7 @@ public class MainActivity extends Activity {
 
     public void gotoOptions(View view) {
         Intent intent = new Intent(this, ConfigOptionsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void gotoListDictionary(View view) {

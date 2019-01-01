@@ -27,8 +27,6 @@ public class ConfigOptionsActivity extends Activity {
         dba.deleteAllWords();
     }
 
-    // TODO - This shows up as "null" the first time that the app is open. Should be something like
-    // "not set" or such.
     public void changeLanguage(View view) {
 
         dba.insertConfigOption(new ConfigOption(
