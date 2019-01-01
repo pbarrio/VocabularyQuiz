@@ -1,6 +1,6 @@
 <resources>
     <!--TODO: set different titles for each screen -->
-    <string name="app_name">Vocabulary quiz</string>
+    <string name="app_name">Quizzomatic</string>
 
     <!-- Activity titles -->
     <string name="title_activity_list_config_options">ListConfigOptionsActivity</string>
