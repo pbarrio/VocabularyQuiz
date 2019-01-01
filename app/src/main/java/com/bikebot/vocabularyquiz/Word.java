@@ -41,7 +41,7 @@ public class Word implements Comparable<Word>{
     }
 
     public int compareTo(Word word) {
-        return this.learntWord.compareTo(word.learntWord);
+        return this.learntWord.toLowerCase().compareTo(word.learntWord.toLowerCase());
     }
 
     public int getPercentageCorrect() {
