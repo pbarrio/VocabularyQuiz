@@ -45,7 +45,6 @@ public class AddWordActivity extends Activity {
         // Prepare for next word
         word.setText("");
         meaning.setText("");
-
-        // TODO: put the cursor back into the first (word) field
+        word.requestFocus(); // Set the focus back to the first text field
     }
 }
