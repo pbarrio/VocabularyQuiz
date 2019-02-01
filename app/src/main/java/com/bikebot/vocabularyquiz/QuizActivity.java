@@ -25,7 +25,8 @@ public class QuizActivity extends Activity {
     private Set<Word> words;
     private Iterator<Word> wordsIt;
     private Word current_word;
-    private int correct, incorrect; // Score
+    private int correct; // Score
+    HashSet<Word> incorrect;
     private boolean isCurrentWordChecked;
 
     @Override
@@ -52,6 +53,9 @@ public class QuizActivity extends Activity {
             return;
         }
 
+        // TODO: make sure that even words that have 100% correctness have a chance to be chosen
+        // Idea: make it dependent on the number of times that it showed up on a test
+        // Another idea: sort words by #failed, then by #correct descending
         Arrays.sort(allWords, new Word.CorrectnessComparator());
 
         // Pre-populate test to make sure words are not repeated
@@ -60,7 +64,7 @@ public class QuizActivity extends Activity {
             words.add(allWords[i]);
 
         correct = 0;
-        incorrect = 0;
+        incorrect = new HashSet<Word>();
         wordsIt = words.iterator();
         askWord();
     }
@@ -100,6 +104,7 @@ public class QuizActivity extends Activity {
         EditText answerBox = (EditText) findViewById(R.id.answer);
         TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
+        // TODO: make correctness test case-insensitive
         String translation = current_word.translation;
         if (translation.equals(answerBox.getText().toString())) {
             // TODO: display result message in a "Snackbar" instead of a text field
@@ -113,7 +118,7 @@ public class QuizActivity extends Activity {
                     current_word.learntWord,
                     translation
             ));
-            ++incorrect;
+            incorrect.add(current_word);
             current_word.timesWrong++;
         }
         isCurrentWordChecked = true;
@@ -130,7 +135,7 @@ public class QuizActivity extends Activity {
 
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra(getString(R.string.param_n_correct), correct);
-        intent.putExtra(getString(R.string.param_n_incorrect), incorrect);
+        intent.putExtra(getString(R.string.param_n_incorrect), incorrect.toArray().length);
         startActivity(intent);
         finish();
     }
