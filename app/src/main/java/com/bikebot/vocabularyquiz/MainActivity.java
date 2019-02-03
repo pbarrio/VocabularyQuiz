@@ -11,7 +11,7 @@ public class MainActivity extends Activity {
     DBAccessor dba;
 
     private void resetTitle () {
-        String title = getTitle().toString();
+        String title = getResources().getString(R.string.app_name);
         String language = dba.getConfigOption(getString(R.string.language_learnt));
         if (language != null)
             setTitle(title + " - " + language);
