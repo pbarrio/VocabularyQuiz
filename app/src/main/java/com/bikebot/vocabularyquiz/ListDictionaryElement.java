@@ -26,6 +26,13 @@ public class ListDictionaryElement extends RelativeLayout{
     protected TextView additionalData;
     protected CheckBox select;
 
+    // TODO: add a slider in the word so that it hides the meaning but we can slide with the finger
+    // to see the meaning. This is good to study with the dictionary.
+
+    // TODO: additionally to the previous idea, it would be nice to have a button in
+    // ListDictionaryActivity to switch between word and meaning visible, so that we can study in
+    // both directions.
+
     public ListDictionaryElement(Context context) {
 
         super(context);
