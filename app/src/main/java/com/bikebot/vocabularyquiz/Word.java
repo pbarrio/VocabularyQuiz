@@ -45,9 +45,9 @@ public class Word implements Comparable<Word>, Serializable {
         return this.learntWord.toLowerCase().compareTo(word.learntWord.toLowerCase());
     }
 
-    public int getPercentageCorrect() {
+    public int getCorrectness() {
         try {
-            return timesRight * 100 / (timesRight + timesWrong);
+            return timesRight - timesWrong;
         }
         catch (ArithmeticException e) {
             return 0;
@@ -56,7 +56,7 @@ public class Word implements Comparable<Word>, Serializable {
 
     static class CorrectnessComparator implements Comparator<Word> {
         public int compare(Word a, Word b) {
-            return a.getPercentageCorrect() - b.getPercentageCorrect();
+            return a.getCorrectness() - b.getCorrectness();
         }
     }
 }

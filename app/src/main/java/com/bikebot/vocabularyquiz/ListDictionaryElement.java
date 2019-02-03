@@ -100,7 +100,7 @@ public class ListDictionaryElement extends RelativeLayout{
         // Info about how many times the word was answered correctly
         additionalData.setText(getResources().getString(
                 R.string.additional_word_data,
-                word.getPercentageCorrect()
+                word.getCorrectness()
         ));
     }
 

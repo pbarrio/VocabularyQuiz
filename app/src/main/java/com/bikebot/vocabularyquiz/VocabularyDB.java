@@ -7,6 +7,8 @@ import android.arch.persistence.room.RoomDatabase;
  * Created by pablo on 10/02/18.
  */
 
+// TODO: find a way to do backups of the data and recover from there
+
 @Database(entities={Word.class, ConfigOption.class}, version=1, exportSchema=false)
 public abstract class VocabularyDB extends RoomDatabase {
 
