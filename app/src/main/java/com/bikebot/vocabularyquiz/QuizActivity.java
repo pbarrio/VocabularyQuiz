@@ -102,9 +102,8 @@ public class QuizActivity extends Activity {
         EditText answerBox = (EditText) findViewById(R.id.answer);
         TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
-        // TODO: make correctness test case-insensitive
-        String translation = current_word.translation;
-        if (translation.equals(answerBox.getText().toString())) {
+        String translation = current_word.translation.toLowerCase();
+        if (translation.equals(answerBox.getText().toString().toLowerCase())) {
             // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getText(R.string.info_correct));
             current_word.timesRight++;
