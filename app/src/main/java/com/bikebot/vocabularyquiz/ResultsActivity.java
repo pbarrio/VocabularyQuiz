@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.HashSet;
+
 public class ResultsActivity extends Activity {
 
     @Override
@@ -14,13 +16,17 @@ public class ResultsActivity extends Activity {
 
         Intent intent = getIntent();
         TextView resultMsg = (TextView) findViewById(R.id.resultMsg);
-        int correct = intent.getIntExtra(getString(R.string.param_n_correct), 0);
-        int incorrect = intent.getIntExtra(getString(R.string.param_n_incorrect), 0);
+        int nQuestions = intent.getIntExtra(getString(R.string.param_n_answered), 0);
+        HashSet<Word> incorrect =
+                (HashSet<Word>)intent.getSerializableExtra(getString(R.string.param_incorrect));
+        int nCorrect = nQuestions - incorrect.size();
         resultMsg.setText(getResources().getString(
                 R.string.info_quiz_result,
-                correct + incorrect,
-                correct,
-                (correct * 100) / (float) (correct + incorrect)
+                nCorrect,
+                nQuestions,
+                (nCorrect * 100) / (float) nQuestions
         ));
+
+        // TODO: show a list with the failed words (already received into variable "incorrect")
     }
 }

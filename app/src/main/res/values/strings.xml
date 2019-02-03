@@ -29,8 +29,8 @@
 
     <!-- Intent parameters -->
     <string name="param_error">error_msg</string>
-    <string name="param_n_correct">n_correct</string>
-    <string name="param_n_incorrect">n_incorrect</string>
+    <string name="param_n_answered">n_answered</string>
+    <string name="param_incorrect">incorrect_words</string>
 
     <!-- Error & info messages -->
     <string name="error_empty_dict">Not enough words in the dictionary. Please add some words first until you have at least %1$s.</string>
@@ -38,7 +38,7 @@
     <string name="info_word_exists">The word already exists in the dictionary.</string>
     <string name="info_correct">Correct!</string>
     <string name="info_incorrect">Wrong answer :(\nThe meaning of %1$s is %2$s.</string>
-    <string name="info_quiz_result">You answered a total of %1$d questions, of which %2$d were correct.\nYou scored %3$.0f%%</string>
+    <string name="info_quiz_result">You answered %1$d questions correctly of a total of %2$d.\nYou scored %3$.0f%%</string>
 
     <!-- App option names -->
     <string name="language_learnt">Language being learned</string>

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Comparator;
  */
 
 @Entity
-public class Word implements Comparable<Word>{
+public class Word implements Comparable<Word>, Serializable {
 
     /*
         TODO: find a consistent naming for the word in one language and in another. Possibly need to

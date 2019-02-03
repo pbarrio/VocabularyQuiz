@@ -25,7 +25,6 @@ public class QuizActivity extends Activity {
     private Set<Word> words;
     private Iterator<Word> wordsIt;
     private Word current_word;
-    private int correct; // Score
     HashSet<Word> incorrect;
     private boolean isCurrentWordChecked;
 
@@ -63,7 +62,6 @@ public class QuizActivity extends Activity {
         for (int i = 0; words.size() < QuizActivity.NWORDS && i < allWords.length; ++i)
             words.add(allWords[i]);
 
-        correct = 0;
         incorrect = new HashSet<Word>();
         wordsIt = words.iterator();
         askWord();
@@ -109,7 +107,6 @@ public class QuizActivity extends Activity {
         if (translation.equals(answerBox.getText().toString())) {
             // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getText(R.string.info_correct));
-            ++correct;
             current_word.timesRight++;
         } else {
             // TODO: display result message in a "Snackbar" instead of a text field
@@ -134,8 +131,8 @@ public class QuizActivity extends Activity {
             dba.updateWord(wordsIt.next());
 
         Intent intent = new Intent(this, ResultsActivity.class);
-        intent.putExtra(getString(R.string.param_n_correct), correct);
-        intent.putExtra(getString(R.string.param_n_incorrect), incorrect.toArray().length);
+        intent.putExtra(getString(R.string.param_n_answered), NWORDS);
+        intent.putExtra(getString(R.string.param_incorrect), incorrect);
         startActivity(intent);
         finish();
     }
