@@ -52,9 +52,6 @@ public class QuizActivity extends Activity {
             return;
         }
 
-        // TODO: make sure that even words that have 100% correctness have a chance to be chosen
-        // Idea: make it dependent on the number of times that it showed up on a test
-        // Another idea: sort words by #failed, then by #correct descending
         Arrays.sort(allWords, new Word.CorrectnessComparator());
 
         // Pre-populate test to make sure words are not repeated
