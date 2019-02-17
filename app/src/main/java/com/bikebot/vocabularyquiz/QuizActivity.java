@@ -24,14 +24,14 @@ public class QuizActivity extends Activity {
 
     private Set<Word> words;
     private Iterator<Word> wordsIt;
-    private Word current_word;
+    private Word currentWord;
     HashSet<Word> incorrect;
     private boolean isCurrentWordChecked;
+    private boolean reverse; // Are we currently asking for a reverse translation?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // TODO: allow changing the type of test (from native to translated or vice-versa)
         dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
@@ -77,15 +77,22 @@ public class QuizActivity extends Activity {
             return;
         }
 
-        current_word = wordsIt.next();
-
         TextView cmpCheckMsg = (TextView) findViewById(R.id.cmpCheckMsg);
+        TextView question = (TextView) findViewById(R.id.foreignWord);
         EditText answer = (EditText) findViewById(R.id.answer);
+
+        currentWord = wordsIt.next();
+        reverse = rand.nextBoolean();
+
+        // Reset text boxes and messages since they are outdated with info from the previous word
         cmpCheckMsg.setText("");
         answer.setText("");
 
-        TextView foreignWord = (TextView) findViewById(R.id.foreignWord);
-        foreignWord.setText(current_word.learntWord);
+        if (reverse)
+            question.setText(currentWord.translation);
+        else
+            question.setText(currentWord.learntWord);
+
         isCurrentWordChecked = false;
     }
 
@@ -99,20 +106,23 @@ public class QuizActivity extends Activity {
         EditText answerBox = (EditText) findViewById(R.id.answer);
         TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
-        String translation = current_word.translation.toLowerCase();
-        if (translation.equals(answerBox.getText().toString().toLowerCase())) {
+        String correctAnswer = reverse ?
+                currentWord.learntWord.toLowerCase() :
+                currentWord.translation.toLowerCase();
+        String providedAnswer = answerBox.getText().toString().toLowerCase();
+        if (correctAnswer.equals(providedAnswer)) {
             // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getText(R.string.info_correct));
-            current_word.timesRight++;
+            currentWord.timesRight++;
         } else {
             // TODO: display result message in a "Snackbar" instead of a text field
             cmpCheck.setText(getResources().getString(
                     R.string.info_incorrect,
-                    current_word.learntWord,
-                    translation
+                    reverse ? currentWord.translation : currentWord.learntWord,
+                    correctAnswer
             ));
-            incorrect.add(current_word);
-            current_word.timesWrong++;
+            incorrect.add(currentWord);
+            currentWord.timesWrong++;
         }
         isCurrentWordChecked = true;
     }
