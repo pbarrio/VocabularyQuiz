@@ -3,6 +3,8 @@ package com.bikebot.vocabularyquiz;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashSet;
@@ -27,6 +29,14 @@ public class ResultsActivity extends Activity {
                 (nCorrect * 100) / (float) nQuestions
         ));
 
-        // TODO: show a list with the failed words (already received into variable "incorrect")
+        // Show a list with the failed words
+        LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_wrong);
+        for (Word w : incorrect) {
+
+            ListDictionaryElement row = new ListDictionaryElement(
+                    new ContextThemeWrapper(getApplicationContext(), R.style.AppTheme));
+            row.setWord(w);
+            wordList.addView(row);
+        }
     }
 }

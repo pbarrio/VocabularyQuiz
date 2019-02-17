@@ -1,5 +1,4 @@
 <resources>
-    <!--TODO: set different titles for each screen -->
     <string name="app_name">Quizzomatic</string>
 
     <!-- Activity titles -->
@@ -44,7 +43,8 @@
     <string name="language_learnt">Language being learned</string>
 
     <!-- Others -->
-    <string name="translated_word_in_list_dict">(%1$s)</string>
     <string name="additional_word_data">score = %1$d</string>
+    <string name="translated_word_in_list_dict">(%1$s)</string>
+    <string name="failed_words_header">You failed the following words:</string>
 
 </resources>
