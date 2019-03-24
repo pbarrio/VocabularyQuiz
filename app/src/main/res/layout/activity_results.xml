@@ -17,15 +17,10 @@
         android:layout_height="wrap_content"
         android:text="@string/failed_words_header" />
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/layout_list_wrong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:id="@+id/view_list_incorrect">
+    </ListView>
 
 </LinearLayout>

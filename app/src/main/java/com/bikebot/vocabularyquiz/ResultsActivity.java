@@ -5,9 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class ResultsActivity extends Activity {
 
@@ -19,9 +20,11 @@ public class ResultsActivity extends Activity {
         Intent intent = getIntent();
         TextView resultMsg = (TextView) findViewById(R.id.resultMsg);
         int nQuestions = intent.getIntExtra(getString(R.string.param_n_answered), 0);
-        HashSet<Word> incorrect =
-                (HashSet<Word>)intent.getSerializableExtra(getString(R.string.param_incorrect));
-        int nCorrect = nQuestions - incorrect.size();
+
+        // Receive incorrect words from the test to show the user as part of the results
+        ArrayList<Word> incorrectWords =
+                (ArrayList<Word>)intent.getSerializableExtra(getString(R.string.param_incorrect));
+        int nCorrect = nQuestions - incorrectWords.size();
         resultMsg.setText(getResources().getString(
                 R.string.info_quiz_result,
                 nCorrect,
@@ -30,13 +33,8 @@ public class ResultsActivity extends Activity {
         ));
 
         // Show a list with the failed words
-        LinearLayout wordList = (LinearLayout) this.findViewById(R.id.layout_list_wrong);
-        for (Word w : incorrect) {
-
-            ListDictionaryElement row = new ListDictionaryElement(
-                    new ContextThemeWrapper(getApplicationContext(), R.style.AppTheme));
-            row.setWord(w);
-            wordList.addView(row);
-        }
+        ListView incorrectWordView = (ListView) this.findViewById(R.id.view_list_incorrect);
+        WordAdapter adapter = new WordAdapter(this, incorrectWords);
+        incorrectWordView.setAdapter(adapter);
     }
 }

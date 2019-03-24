@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,12 +21,12 @@ public class QuizActivity extends Activity {
 
     private static Random rand = new Random();
 
-    DBAccessor dba;
+    private DBAccessor dba;
 
     private Set<Word> words;
     private Iterator<Word> wordsIt;
     private Word currentWord;
-    HashSet<Word> incorrect;
+    private ArrayList<Word> incorrect;
     private boolean isCurrentWordChecked;
     private boolean reverse; // Are we currently asking for a reverse translation?
 
@@ -59,7 +60,7 @@ public class QuizActivity extends Activity {
         for (int i = 0; words.size() < QuizActivity.NWORDS && i < allWords.length; ++i)
             words.add(allWords[i]);
 
-        incorrect = new HashSet<Word>();
+        incorrect = new ArrayList<Word>();
         wordsIt = words.iterator();
         askWord();
     }

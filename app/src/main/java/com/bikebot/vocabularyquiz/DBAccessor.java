@@ -18,29 +18,29 @@ public interface DBAccessor {
      * Word table
      */
     @Insert
-    public void insertNewWord(Word w);
+    void insertNewWord(Word w);
 
     @Update
-    public void updateWord(Word word);
+    void updateWord(Word word);
 
     @Delete()
-    public void deleteWord(Word word);
+    void deleteWord(Word word);
 
     @Query("SELECT * FROM Word")
-    public Word[] getAllWords();
+    Word[] getAllWords();
 
     @Query("DELETE FROM Word")
-    public void deleteAllWords();
+    void deleteAllWords();
 
     /*
      * Configuration table
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertConfigOption(ConfigOption c);
+    void insertConfigOption(ConfigOption c);
 
     @Query("SELECT * FROM ConfigOption")
-    public ConfigOption[] getAllConfigOptions();
+    ConfigOption[] getAllConfigOptions();
 
     @Query("SELECT value FROM ConfigOption WHERE option = :optionName")
-    public String getConfigOption(String optionName);
+    String getConfigOption(String optionName);
 }
