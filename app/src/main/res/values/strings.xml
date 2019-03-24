@@ -25,6 +25,8 @@
     <string name="next_word">Next word</string>
     <string name="change_language">Change language</string>
     <string name="view_options">View current options</string>
+    <string name="word_delete">Delete</string>
+    <string name="word_modify">Modify</string>
 
     <!-- Intent parameters -->
     <string name="param_error">error_msg</string>
