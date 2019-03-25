@@ -27,21 +27,30 @@ public class WordAdapter extends ArrayAdapter<Word> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
-        if (listItem == null)
-            listItem = LayoutInflater.from(adapterContext).inflate(
-                    R.layout.list_dictionary_element, parent, false);
 
+        View listItem = convertView;
         Word w = wordList.get(position);
 
+        if (listItem == null) {
+            // Default is to assume that the list item is a dictionary word
+            int layout = R.layout.list_dictionary_element;
+
+            // If the item doesng't have a translation, it's a list header
+            if (w.translation.equals(""))
+                layout = R.layout.list_dictionary_header;
+
+            listItem = LayoutInflater.from(adapterContext).inflate(
+                    layout, parent, false);
+        }
+
         TextView foreign = (TextView) listItem.findViewById(R.id.foreignWord);
-        foreign.setText(w.learntWord);
+        if (foreign != null) foreign.setText(w.learntWord);
 
         TextView translation = (TextView) listItem.findViewById(R.id.translation);
-        translation.setText(w.translation);
+        if (translation != null) translation.setText(w.translation);
 
         TextView extras = (TextView) listItem.findViewById(R.id.additionalData);
-        extras.setText(adapterContext.getResources().getString(
+        if (extras != null) extras.setText(adapterContext.getResources().getString(
                 R.string.additional_word_data,
                 w.getCorrectness()
         ));

@@ -32,7 +32,6 @@ public class ListDictionaryActivity extends Activity {
 
         /* TODO: this functionality is duplicated in several classes. Create a superclass to access
            the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
-        // TODO: show header with the current letter in the sorted list
         dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
@@ -48,21 +47,42 @@ public class ListDictionaryActivity extends Activity {
             return;
         }
 
+        // Insert letter headers into the list
+        char currentHeader = 0;
+        for (int i = 0; i < words.size(); ++i) {
+            char firstCharOfWord = words.get(i).learntWord.charAt(0);
+            if (firstCharOfWord > currentHeader) {
+                currentHeader = firstCharOfWord;
+                words.add(
+                        i,
+                        new Word(String.valueOf(Character.toUpperCase(currentHeader)), "")
+                );
+            }
+        }
+
+        // Create adapter to visualize the list
         ListView wordViewList = (ListView) this.findViewById(R.id.layout_list_dict);
         adapter = new WordAdapter(this, words);
         wordViewList.setAdapter(adapter);
+
+        // Allow context menu over the list of words (to delete elements, modify them, etc.)
         registerForContextMenu(wordViewList);
     }
 
     public void onCreateContextMenu(ContextMenu menu, View view,
                                     ContextMenu.ContextMenuInfo menuInfo) {
 
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        currentlySelectedWord = words.get(info.position);
+
+        // If this is a header item, do not show the context menu
+        if (currentlySelectedWord.translation.equals(""))
+            return;
+
         super.onCreateContextMenu(menu, view, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wordlist_item, menu);
 
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        currentlySelectedWord = words.get(info.position);
         menu.setHeaderTitle(currentlySelectedWord.learntWord);
     }
 
@@ -70,10 +90,13 @@ public class ListDictionaryActivity extends Activity {
 
         //TODO: finish logic and remove other ways of delete the words
         switch (item.getItemId()) {
+
+            // TODO: prompt for a double-check message before deleting the word
             case R.id.delete_button:
                 adapter.remove(currentlySelectedWord);
                 dba.deleteWord(currentlySelectedWord);
                 return true;
+            // TODO: implement pop-up to modify the word
             case R.id.modify_button:
                 return true;
         }
