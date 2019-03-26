@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,7 +79,6 @@ public class QuizActivity extends Activity {
             return;
         }
 
-        TextView cmpCheckMsg = (TextView) findViewById(R.id.cmpCheckMsg);
         TextView question = (TextView) findViewById(R.id.foreignWord);
         EditText answer = (EditText) findViewById(R.id.answer);
 
@@ -86,7 +86,6 @@ public class QuizActivity extends Activity {
         reverse = rand.nextBoolean();
 
         // Reset text boxes and messages since they are outdated with info from the previous word
-        cmpCheckMsg.setText("");
         answer.setText("");
 
         if (reverse)
@@ -105,26 +104,28 @@ public class QuizActivity extends Activity {
             return;
 
         EditText answerBox = (EditText) findViewById(R.id.answer);
-        TextView cmpCheck = (TextView) findViewById(R.id.cmpCheckMsg);
 
         String correctAnswer = reverse ?
                 currentWord.learntWord.toLowerCase() :
                 currentWord.translation.toLowerCase();
         String providedAnswer = answerBox.getText().toString().toLowerCase();
+
+        String msg;
         if (correctAnswer.equals(providedAnswer)) {
-            // TODO: display result message in a "Snackbar" instead of a text field
-            cmpCheck.setText(getText(R.string.info_correct));
+            msg = getString(R.string.info_correct);
             currentWord.timesRight++;
         } else {
-            // TODO: display result message in a "Snackbar" instead of a text field
-            cmpCheck.setText(getResources().getString(
+            msg = getString(
                     R.string.info_incorrect,
                     reverse ? currentWord.translation : currentWord.learntWord,
                     correctAnswer
-            ));
+            );
             incorrect.add(currentWord);
             currentWord.timesWrong++;
         }
+        Toast msgDialog = Toast.makeText(
+                getApplicationContext(), msg, Toast.LENGTH_LONG);
+        msgDialog.show();
         isCurrentWordChecked = true;
     }
 

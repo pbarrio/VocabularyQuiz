@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddWordActivity extends Activity {
 
@@ -28,19 +29,21 @@ public class AddWordActivity extends Activity {
 
         EditText word = (EditText)findViewById(R.id.learnt_word);
         EditText meaning = (EditText)findViewById(R.id.meaning);
-        TextView infoMsg = (TextView) findViewById(R.id.info_msg);
 
+        String msg;
         try {
             dba.insertNewWord(new Word(
                     word.getText().toString(),
                     meaning.getText().toString()));
-            // TODO: display result message in a "Snackbar" instead of a text field
-            infoMsg.setText(getString(R.string.info_word_saved));
+
+            msg = getString(R.string.info_word_saved);
         }
         catch (SQLiteConstraintException e) {
-            // TODO: display result message in a "Snackbar" instead of a text field
-            infoMsg.setText(getString(R.string.info_word_exists));
+            msg = getString(R.string.info_word_exists);
         }
+        Toast msgDialog = Toast.makeText(
+                getApplicationContext(), msg, Toast.LENGTH_LONG);
+        msgDialog.show();
 
         // Prepare for next word
         word.setText("");
