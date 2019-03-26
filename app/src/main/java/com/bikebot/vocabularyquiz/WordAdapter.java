@@ -28,32 +28,44 @@ public class WordAdapter extends ArrayAdapter<Word> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View listItem = convertView;
         Word w = wordList.get(position);
+        boolean isLetterHeader = w.translation.equals("");
 
+        View listItem = convertView;
         if (listItem == null) {
-            // Default is to assume that the list item is a dictionary word
-            int layout = R.layout.list_dictionary_element;
 
-            // If the item doesng't have a translation, it's a list header
-            if (w.translation.equals(""))
-                layout = R.layout.list_dictionary_header;
-
+            int layout = isLetterHeader ?
+                    R.layout.list_dictionary_header :
+                    R.layout.list_dictionary_element;
             listItem = LayoutInflater.from(adapterContext).inflate(
                     layout, parent, false);
         }
 
-        TextView foreign = (TextView) listItem.findViewById(R.id.foreignWord);
-        if (foreign != null) foreign.setText(w.learntWord);
-
         TextView translation = (TextView) listItem.findViewById(R.id.translation);
-        if (translation != null) translation.setText(w.translation);
-
         TextView extras = (TextView) listItem.findViewById(R.id.additionalData);
-        if (extras != null) extras.setText(adapterContext.getResources().getString(
-                R.string.additional_word_data,
-                w.getCorrectness()
-        ));
+
+        // Amend the view if it is of the incorrect type
+        if (translation == null && !isLetterHeader) {
+
+            listItem = LayoutInflater.from(adapterContext).inflate(
+                    R.layout.list_dictionary_element, parent, false);
+
+            translation = (TextView) listItem.findViewById(R.id.translation);
+            extras = (TextView) listItem.findViewById(R.id.additionalData);
+        }
+        else if (translation != null && isLetterHeader)
+            listItem = LayoutInflater.from(adapterContext).inflate(
+                    R.layout.list_dictionary_header, parent, false);
+
+        TextView foreign = (TextView) listItem.findViewById(R.id.foreignWord);
+        foreign.setText(w.learntWord);
+        if (!isLetterHeader) {
+            translation.setText(w.translation);
+            extras.setText(adapterContext.getResources().getString(
+                    R.string.additional_word_data,
+                    w.getCorrectness()
+            ));
+        }
 
         return listItem;
     }
