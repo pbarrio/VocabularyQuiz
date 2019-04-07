@@ -1,5 +1,7 @@
 package com.bikebot.vocabularyquiz;
 
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ListDictionaryActivity extends Activity {
+public class ListDictionaryActivity extends Activity implements ModifyWordDialogFragment.Listener{
 
     private DBAccessor dba;
 
@@ -88,19 +90,34 @@ public class ListDictionaryActivity extends Activity {
 
     public boolean onContextItemSelected(MenuItem item) {
 
-        //TODO: finish logic and remove other ways of delete the words
         switch (item.getItemId()) {
 
             // TODO: prompt for a double-check message before deleting the word
             case R.id.delete_button:
                 adapter.remove(currentlySelectedWord);
                 dba.deleteWord(currentlySelectedWord);
-                return true;
-            // TODO: implement pop-up to modify the word
+                adapter.notifyDataSetChanged();
+                break;
             case R.id.modify_button:
-                return true;
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                DialogFragment fragment = new ModifyWordDialogFragment();
+
+                // Pass current word to the dialog
+                Bundle args = new Bundle();
+                args.putString(getString(R.string.param_foreign_word), currentlySelectedWord.learntWord);
+                args.putString(getString(R.string.param_translation), currentlySelectedWord.translation);
+                fragment.setArguments(args);
+
+                fragment.show(transaction, "");
+                break;
         }
-        adapter.notifyDataSetChanged();
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void modifyTranslation(String translation) {
+        currentlySelectedWord.translation = translation;
+        dba.updateWord(currentlySelectedWord);
+        adapter.notifyDataSetChanged();
     }
 }

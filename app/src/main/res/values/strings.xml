@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Quizzomatic</string>
 
-    <!-- Activity titles -->
+    <!-- Titles -->
     <string name="title_activity_add_word">Add word</string>
     <string name="title_activity_config_options">Configuration</string>
     <string name="title_activity_error_msg">Error</string>
@@ -9,11 +9,14 @@
     <string name="title_activity_list_dictionary">Dictionary</string>
     <string name="title_activity_quiz">Quiz</string>
     <string name="title_activity_results">Results</string>
+    <string name="title_dialog_modify_word">Modify word</string>
 
     <!-- Immutable text boxes -->
     <string name="foreign_word_challenge">What is the meaning of this word?</string>
 
     <!-- Button labels -->
+    <string name="button_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
     <string name="check_answer">Check answer</string>
     <string name="delete_db">Cleanup database</string>
     <string name="delete">Delete</string>
@@ -28,8 +31,10 @@
     <string name="word_delete">Delete</string>
     <string name="word_modify">Modify</string>
 
-    <!-- Intent parameters -->
+    <!-- Parameters -->
     <string name="param_error">error_msg</string>
+    <string name="param_foreign_word">foreign_word</string>
+    <string name="param_translation">translation</string>
     <string name="param_n_answered">n_answered</string>
     <string name="param_incorrect">incorrect_words</string>
 
@@ -42,7 +47,7 @@
     <string name="info_quiz_result">You answered %1$d questions correctly of a total of %2$d.\nYou scored %3$.0f%%</string>
 
     <!-- App option names -->
-    <string name="language_learnt">Language being learned</string>
+    <string name="language_learnt">Language being learnt</string>
 
     <!-- Others -->
     <string name="additional_word_data">score = %1$d</string>
