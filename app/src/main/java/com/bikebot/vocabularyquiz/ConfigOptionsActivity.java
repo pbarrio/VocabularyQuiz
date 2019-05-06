@@ -1,10 +1,13 @@
 package com.bikebot.vocabularyquiz;
 
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.Toast;
 
 public class ConfigOptionsActivity extends Activity {
 
@@ -23,8 +26,28 @@ public class ConfigOptionsActivity extends Activity {
     }
 
     public void deleteDB(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setMessage(getString(R.string.textbox_confirm_delete_db))
+                .setPositiveButton(
+                        getString(R.string.button_yes),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dba.deleteAllWords();
+                                Toast msgDialog = Toast.makeText(
+                                        getApplicationContext(),
+                                        getString(R.string.info_db_deleted),
+                                        Toast.LENGTH_LONG);
+                                msgDialog.show();
 
-        dba.deleteAllWords();
+                            }
+                        })
+                .setNegativeButton(
+                        getString(R.string.button_no),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {}
+                        })
+                .show();
     }
 
     public void changeLanguage(View view) {

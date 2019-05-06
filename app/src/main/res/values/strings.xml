@@ -12,11 +12,17 @@
     <string name="title_dialog_modify_word">Modify word</string>
 
     <!-- Immutable text boxes -->
+    <string name="textbox_confirm_delete_db">
+        If you proceed, your entire database will be deleted, including all the dictionary and
+        configuration options. Are you sure this is what you want?"
+    </string>
     <string name="foreign_word_challenge">What is the meaning of this word?</string>
 
     <!-- Button labels -->
     <string name="button_cancel">Cancel</string>
+    <string name="button_no">No</string>
     <string name="button_ok">OK</string>
+    <string name="button_yes">Yes</string>
     <string name="check_answer">Check answer</string>
     <string name="delete_db">Cleanup database</string>
     <string name="delete">Delete</string>
@@ -40,6 +46,7 @@
 
     <!-- Error & info messages -->
     <string name="error_empty_dict">Not enough words in the dictionary. Please add some words first until you have at least %1$s.</string>
+    <string name="info_db_deleted">The database has been deleted</string>
     <string name="info_word_saved">Word saved! Now add another word.</string>
     <string name="info_word_exists">The word already exists in the dictionary.</string>
     <string name="info_correct">Correct!</string>
