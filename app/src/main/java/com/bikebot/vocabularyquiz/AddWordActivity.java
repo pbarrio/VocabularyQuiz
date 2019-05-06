@@ -1,13 +1,11 @@
 package com.bikebot.vocabularyquiz;
 
 import android.arch.persistence.room.Room;
-import android.content.Intent;
 import android.app.Activity;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddWordActivity extends Activity {

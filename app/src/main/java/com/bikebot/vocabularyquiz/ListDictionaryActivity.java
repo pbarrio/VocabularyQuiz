@@ -71,6 +71,7 @@ public class ListDictionaryActivity extends Activity implements ModifyWordDialog
         registerForContextMenu(wordViewList);
     }
 
+    /* Show action menu for the currently selected word */
     public void onCreateContextMenu(ContextMenu menu, View view,
                                     ContextMenu.ContextMenuInfo menuInfo) {
 
