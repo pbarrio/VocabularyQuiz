@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ModifyWordDialogFragment extends DialogFragment {
+public class ModifyDBValueDialogFragment extends DialogFragment {
 
-    Listener modifyWordListener;
+    private Listener modifyDBValueListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -20,11 +20,7 @@ public class ModifyWordDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         Bundle args = getArguments();
-        builder.setTitle(
-                getString(R.string.title_dialog_modify_word) +
-                " " +
-                args.getString(getString(R.string.param_foreign_word))
-        );
+        builder.setTitle(args.getString(getString(R.string.param_title)));
         builder.setView(inflater.inflate(R.layout.dialog_modify_word, null));
         builder.setPositiveButton(
                 R.string.button_ok,
@@ -34,7 +30,7 @@ public class ModifyWordDialogFragment extends DialogFragment {
                                 ((TextView) getDialog().findViewById(R.id.modifyTranslation))
                                 .getText().toString();
 
-                        modifyWordListener.modifyTranslation(translation);
+                        modifyDBValueListener.modifyTranslation(translation);
                     }
                 }
         );
@@ -61,7 +57,7 @@ public class ModifyWordDialogFragment extends DialogFragment {
         super.onAttach(context);
 
         try {
-            modifyWordListener = (Listener) context;
+            modifyDBValueListener = (Listener) context;
         }
         catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +

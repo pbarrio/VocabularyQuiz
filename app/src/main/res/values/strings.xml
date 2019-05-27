@@ -40,9 +40,10 @@
     <!-- Parameters -->
     <string name="param_error">error_msg</string>
     <string name="param_foreign_word">foreign_word</string>
-    <string name="param_translation">translation</string>
-    <string name="param_n_answered">n_answered</string>
     <string name="param_incorrect">incorrect_words</string>
+    <string name="param_n_answered">n_answered</string>
+    <string name="param_title">title</string>
+    <string name="param_translation">translation</string>
 
     <!-- Error & info messages -->
     <string name="error_empty_dict">Not enough words in the dictionary. Please add some words first until you have at least %1$s.</string>

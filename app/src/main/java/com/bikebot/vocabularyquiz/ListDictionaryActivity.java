@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class ListDictionaryActivity extends Activity implements ModifyWordDialogFragment.Listener{
+public class ListDictionaryActivity extends Activity implements ModifyDBValueDialogFragment.Listener{
 
     private DBAccessor dba;
 
@@ -101,12 +101,21 @@ public class ListDictionaryActivity extends Activity implements ModifyWordDialog
                 break;
             case R.id.modify_button:
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                DialogFragment fragment = new ModifyWordDialogFragment();
+                DialogFragment fragment = new ModifyDBValueDialogFragment();
+
+                Bundle args = new Bundle();
 
                 // Pass current word to the dialog
-                Bundle args = new Bundle();
                 args.putString(getString(R.string.param_foreign_word), currentlySelectedWord.learntWord);
                 args.putString(getString(R.string.param_translation), currentlySelectedWord.translation);
+
+                args.putString(
+                        getString(R.string.param_title),
+                        getString(R.string.title_dialog_modify_word)
+                                + " "
+                                + currentlySelectedWord.learntWord
+                );
+
                 fragment.setArguments(args);
 
                 fragment.show(transaction, "");
