@@ -45,13 +45,16 @@ public class ConfigOptionsActivity extends Activity {
                 .setNegativeButton(
                         getString(R.string.button_no),
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {}
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
                         })
                 .show();
     }
 
     public void changeLanguage(View view) {
 
+        // TODO: be able to configure the language (now it can only be "hindi")
         dba.insertConfigOption(new ConfigOption(
                 getString(R.string.language_learnt),
                 "hindi"
