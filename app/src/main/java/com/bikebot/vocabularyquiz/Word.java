@@ -54,6 +54,11 @@ public class Word implements Comparable<Word>, Serializable {
         }
     }
 
+    // Letter header for visualization purposes. Doesn't go into the DB.
+    public boolean isHeader() {
+        return translation.equals("") && learntWord.length() == 1;
+    }
+
     static class CorrectnessComparator implements Comparator<Word> {
         public int compare(Word a, Word b) {
             return a.getCorrectness() - b.getCorrectness();

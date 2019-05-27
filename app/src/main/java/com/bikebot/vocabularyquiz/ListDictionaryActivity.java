@@ -52,6 +52,11 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
         // Insert letter headers into the list
         char currentHeader = 0;
         for (int i = 0; i < words.size(); ++i) {
+
+            String learntWord = words.get(i).learntWord;
+            if (learntWord.length() == 0)
+                continue;
+
             char firstCharOfWord = words.get(i).learntWord.charAt(0);
             if (firstCharOfWord > currentHeader) {
                 currentHeader = firstCharOfWord;
@@ -79,7 +84,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
         currentlySelectedWord = words.get(info.position);
 
         // If this is a header item, do not show the context menu
-        if (currentlySelectedWord.translation.equals(""))
+        if (currentlySelectedWord.isHeader())
             return;
 
         super.onCreateContextMenu(menu, view, menuInfo);
