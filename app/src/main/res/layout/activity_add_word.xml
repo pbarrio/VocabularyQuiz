@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The new word is..."
+        android:text="@string/textbox_new_word"
         android:id="@+id/textView" />
 
     <EditText
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="... and it means..."
+        android:text="@string/textbox_new_word_meaning"
         android:id="@+id/textView2" />
 
     <EditText

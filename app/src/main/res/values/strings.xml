@@ -12,11 +12,13 @@
     <string name="title_dialog_modify_word">Modify word</string>
 
     <!-- Immutable text boxes -->
+    <string name="foreign_word_challenge">What is the meaning of this word?</string>
     <string name="textbox_confirm_delete_db">
         If you proceed, your entire database will be deleted, including all the dictionary and
         configuration options. Are you sure this is what you want?"
     </string>
-    <string name="foreign_word_challenge">What is the meaning of this word?</string>
+    <string name="textbox_new_word">The new word is ...</string>
+    <string name="textbox_new_word_meaning">... and it means ...</string>
 
     <!-- Button labels -->
     <string name="button_cancel">Cancel</string>
