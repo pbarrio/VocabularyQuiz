@@ -25,27 +25,31 @@ public class AddWordActivity extends Activity {
 
     public void saveWord(View view) {
 
-        EditText word = (EditText)findViewById(R.id.learnt_word);
-        EditText meaning = (EditText)findViewById(R.id.meaning);
+        EditText wordField = (EditText)findViewById(R.id.learnt_word);
+        EditText meaningField = (EditText)findViewById(R.id.meaning);
+        String word = wordField.getText().toString();
+        String meaning = meaningField.getText().toString();
 
         String msg;
-        try {
-            dba.insertNewWord(new Word(
-                    word.getText().toString(),
-                    meaning.getText().toString()));
-
-            msg = getString(R.string.info_word_saved);
-        }
-        catch (SQLiteConstraintException e) {
-            msg = getString(R.string.info_word_exists);
-        }
+        if (word.equals(""))
+            msg = getString(R.string.error_empty_string, "the new word");
+        else if (meaning.equals(""))
+            msg = getString(R.string.error_empty_string, "the meaning of the new word");
+        else
+            try {
+                dba.insertNewWord(new Word(word, meaning));
+                msg = getString(R.string.info_word_saved);
+            }
+            catch (SQLiteConstraintException e) {
+                msg = getString(R.string.info_word_exists);
+            }
         Toast msgDialog = Toast.makeText(
                 getApplicationContext(), msg, Toast.LENGTH_LONG);
         msgDialog.show();
 
         // Prepare for next word
-        word.setText("");
-        meaning.setText("");
-        word.requestFocus(); // Set the focus back to the first text field
+        wordField.setText("");
+        meaningField.setText("");
+        wordField.requestFocus(); // Set the focus back to the first text field
     }
 }

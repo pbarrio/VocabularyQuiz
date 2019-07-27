@@ -49,6 +49,7 @@
 
     <!-- Error & info messages -->
     <string name="error_empty_dict">Not enough words in the dictionary. Please add some words first until you have at least %1$s.</string>
+    <string name="error_empty_string">I need a value for %1$s!</string>
     <string name="info_db_deleted">The database has been deleted</string>
     <string name="info_word_saved">Word saved! Now add another word.</string>
     <string name="info_word_exists">The word already exists in the dictionary.</string>

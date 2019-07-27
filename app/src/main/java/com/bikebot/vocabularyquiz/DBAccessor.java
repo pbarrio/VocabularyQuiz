@@ -17,6 +17,7 @@ public interface DBAccessor {
     /*
      * Word table
      */
+
     @Insert
     void insertNewWord(Word w);
 
