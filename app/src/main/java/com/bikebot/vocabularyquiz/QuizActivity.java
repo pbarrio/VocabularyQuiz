@@ -27,6 +27,7 @@ public class QuizActivity extends Activity {
     private Set<Word> words;
     private Iterator<Word> wordsIt;
     private Word currentWord;
+    private int nAnswered = 0;
     private ArrayList<Word> incorrect;
     private boolean isCurrentWordChecked;
     private boolean reverse; // Are we currently asking for a reverse translation?
@@ -123,6 +124,7 @@ public class QuizActivity extends Activity {
             incorrect.add(currentWord);
             currentWord.timesWrong++;
         }
+        nAnswered++;
         Toast msgDialog = Toast.makeText(
                 getApplicationContext(), msg, Toast.LENGTH_LONG);
         msgDialog.show();
@@ -139,7 +141,7 @@ public class QuizActivity extends Activity {
             dba.updateWord(wordsIt.next());
 
         Intent intent = new Intent(this, ResultsActivity.class);
-        intent.putExtra(getString(R.string.param_n_answered), NWORDS);
+        intent.putExtra(getString(R.string.param_n_answered), nAnswered);
         intent.putExtra(getString(R.string.param_incorrect), incorrect);
         startActivity(intent);
         finish();

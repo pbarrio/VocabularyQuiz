@@ -37,7 +37,6 @@
         android:onClick="askWord"
         android:text="@string/next_word" />
 
-    <!--TODO: #2 this button always reports 100% questions answered correctly -->
     <Button
         android:id="@+id/button6"
         android:layout_width="match_parent"
