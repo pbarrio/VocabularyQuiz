@@ -54,7 +54,7 @@ public class ConfigOptionsActivity extends Activity {
 
     public void changeLanguage(View view) {
 
-        // TODO: be able to configure the language (now it can only be "hindi")
+        // TODO: #6 be able to configure the language (now it can only be "hindi")
         dba.insertConfigOption(new ConfigOption(
                 getString(R.string.language_learnt),
                 "hindi"

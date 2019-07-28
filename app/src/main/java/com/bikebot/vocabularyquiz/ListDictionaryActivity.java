@@ -32,8 +32,8 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_dictionary);
 
-        /* TODO: this functionality is duplicated in several classes. Create a superclass to access
-           the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
+        /* TODO: #8 this functionality is duplicated in several classes. Create a superclass to
+             access the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
         dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
@@ -98,7 +98,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
 
         switch (item.getItemId()) {
 
-            // TODO: prompt for a double-check message before deleting the word
+            // TODO: #9 prompt for a double-check message before deleting the word
             case R.id.delete_button:
                 adapter.remove(currentlySelectedWord);
                 dba.deleteWord(currentlySelectedWord);

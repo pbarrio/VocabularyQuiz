@@ -16,9 +16,9 @@ import java.util.Comparator;
 public class Word implements Comparable<Word>, Serializable {
 
     /*
-        TODO: find a consistent naming for the word in one language and in another. Possibly need to
-        come up with a name for the two languages (native for the current language, foreign for the
-        one we're learning?)
+        TODO: #12 find a consistent naming for the word in one language and in another. Possibly
+          need to come up with a name for the two languages (native for the current language,
+          foreign for the one we're learning?)
     */
 
     @PrimaryKey

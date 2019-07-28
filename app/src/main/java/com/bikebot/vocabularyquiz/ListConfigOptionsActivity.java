@@ -10,7 +10,7 @@ public class ListConfigOptionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_config_options);
 
-        // TODO: show list of config options here, similarly to showing the dictionary
+        // TODO: #7 show list of config options here, similarly to showing the dictionary
     }
 
 }

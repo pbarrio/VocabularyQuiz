@@ -17,7 +17,7 @@ public class AddWordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_word);
 
-        // TODO: do not allow main thread queries. This is done everywhere, so look for occurrences!
+        // TODO: #5 Do not allow main thread queries. This is done everywhere, so look for occurrences!
         dba = Room.databaseBuilder(
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();

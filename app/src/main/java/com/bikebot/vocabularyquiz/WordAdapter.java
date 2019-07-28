@@ -33,9 +33,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
                     R.layout.list_dictionary_header :
                     R.layout.list_dictionary_element;
 
-        // TODO: this is not optimal. We should try to reuse convertView if possible, but we first
-        // should check if it is of the right type (i.e. whether it is inflated from a
-        // list_dictionary_element or from a list_dictionary_header)
+        /* TODO: #13 This is not optimal. We should try to reuse convertView if possible, but we
+            first should check if it is of the right type (i.e. whether it is inflated from a
+            list_dictionary_element or from a list_dictionary_header) */
         View listItem = LayoutInflater.from(adapterContext).inflate(layout, parent,false);
 
         TextView foreign = (TextView) listItem.findViewById(R.id.foreignWord);

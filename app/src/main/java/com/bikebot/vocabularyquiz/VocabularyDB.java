@@ -7,9 +7,9 @@ import android.arch.persistence.room.RoomDatabase;
  * Created by pablo on 10/02/18.
  */
 
-// TODO: find a way to do backups of the data and recover from there
+// TODO: #10 find a way to do backups of the data and recover from there
 
-// TODO: allow synonyms, i.e. multiple meanings for a word and one meaning to match several words
+// TODO: #11 allow synonyms, i.e. multiple meanings for a word and one meaning to match several words
 
 @Database(entities={Word.class, ConfigOption.class}, version=1, exportSchema=false)
 public abstract class VocabularyDB extends RoomDatabase {
