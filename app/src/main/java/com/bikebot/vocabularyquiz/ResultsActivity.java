@@ -32,9 +32,15 @@ public class ResultsActivity extends Activity {
                 (nCorrect * 100) / (float) nQuestions
         ));
 
-        // Show a list with the failed words
-        ListView incorrectWordView = (ListView) this.findViewById(R.id.view_list_incorrect);
-        WordAdapter adapter = new WordAdapter(this, incorrectWords);
-        incorrectWordView.setAdapter(adapter);
+        // Show a list with the failed words, if any, otherwise set message to congratulate the user
+        if (incorrectWords.size() == 0) {
+            TextView incorrectWordView = (TextView) this.findViewById(R.id.failedHeader);
+            incorrectWordView.setText(getString(R.string.header_no_failed_words));
+        }
+        else {
+            ListView incorrectWordView = (ListView) this.findViewById(R.id.view_list_incorrect);
+            WordAdapter adapter = new WordAdapter(this, incorrectWords);
+            incorrectWordView.setAdapter(adapter);
+        }
     }
 }

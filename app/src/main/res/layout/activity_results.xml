@@ -15,12 +15,11 @@
         android:id="@+id/failedHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/failed_words_header" />
+        android:text="@string/header_failed_words" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/view_list_incorrect">
-    </ListView>
+        android:id="@+id/view_list_incorrect" />
 
 </LinearLayout>

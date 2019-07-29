@@ -48,14 +48,18 @@
     <string name="param_translation">translation</string>
 
     <!-- Error & info messages -->
-    <string name="error_empty_dict">Not enough words in the dictionary. Please add some words first until you have at least %1$s.</string>
+    <string name="error_empty_dict">
+        Not enough words in the dictionary. Please add some words first until you have at least %1$s.
+    </string>
     <string name="error_empty_string">I need a value for %1$s!</string>
     <string name="info_db_deleted">The database has been deleted</string>
     <string name="info_word_saved">Word saved! Now add another word.</string>
     <string name="info_word_exists">The word already exists in the dictionary.</string>
     <string name="info_correct">Correct!</string>
     <string name="info_incorrect">Wrong answer :(\nThe meaning of %1$s is %2$s.</string>
-    <string name="info_quiz_result">You answered %1$d questions correctly of a total of %2$d.\nYou scored %3$.0f%%</string>
+    <string name="info_quiz_result">
+        You answered %1$d questions correctly of a total of %2$d.\nYou scored %3$.0f%%
+    </string>
 
     <!-- App option names -->
     <string name="language_learnt">Language being learnt</string>
@@ -63,6 +67,7 @@
     <!-- Others -->
     <string name="additional_word_data">score = %1$d</string>
     <string name="translated_word_in_list_dict">(%1$s)</string>
-    <string name="failed_words_header">You failed the following words:</string>
+    <string name="header_failed_words">You failed the following words:</string>
+    <string name="header_no_failed_words">Congrats!</string>
 
 </resources>
