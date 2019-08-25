@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -42,8 +44,8 @@ public class QuizActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        Word[] allWords = dba.getAllWords();
-        if (allWords.length < QuizActivity.NWORDS) {
+        List<Word> allWords = dba.getAllWords();
+        if (allWords.size() < QuizActivity.NWORDS) {
 
             Intent intent = new Intent(this, ErrorMsgActivity.class);
             intent.putExtra(
@@ -55,14 +57,14 @@ public class QuizActivity extends Activity {
             return;
         }
 
-        Arrays.sort(allWords, new Word.CorrectnessComparator());
+        Collections.sort(allWords, new Word.CorrectnessComparator());
 
         // Pre-populate test to make sure words are not repeated
-        words = new HashSet<Word>();
-        for (int i = 0; words.size() < QuizActivity.NWORDS && i < allWords.length; ++i)
-            words.add(allWords[i]);
+        words = new HashSet<>();
+        for (int i = 0; words.size() < QuizActivity.NWORDS && i < allWords.size(); ++i)
+            words.add(allWords.get(i));
 
-        incorrect = new ArrayList<Word>();
+        incorrect = new ArrayList<>();
         wordsIt = words.iterator();
         askWord();
     }

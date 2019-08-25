@@ -38,7 +38,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
                 getApplicationContext(), VocabularyDB.class, "vocabulary-db"
         ).allowMainThreadQueries().build().getDBAccessor();
 
-        words = new ArrayList<>(Arrays.asList(dba.getAllWords()));
+        words = new ArrayList<>(dba.getAllWords());
         Collections.sort(words);
 
         if (words.size() == 0) {

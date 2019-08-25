@@ -7,6 +7,8 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.List;
+
 /**
  * Created by pablo on 10/02/18.
  */
@@ -28,7 +30,7 @@ public interface DBAccessor {
     void deleteWord(Word word);
 
     @Query("SELECT * FROM Word")
-    Word[] getAllWords();
+    List<Word> getAllWords();
 
     @Query("DELETE FROM Word")
     void deleteAllWords();
