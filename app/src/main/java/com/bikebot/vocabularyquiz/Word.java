@@ -34,7 +34,7 @@ public class Word implements Comparable<Word>, Serializable {
     @ColumnInfo
     public int timesRight; // #times the word was answered right in a quiz
 
-    public Word(String learntWord, String translation) {
+    public Word(@NonNull String learntWord, String translation) {
         this.learntWord = learntWord;
         this.translation = translation;
         this.timesWrong = 0;

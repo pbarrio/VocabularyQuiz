@@ -43,7 +43,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
 
         if (words.size() == 0) {
             Intent intent = new Intent(this, ErrorMsgActivity.class);
-            intent.putExtra(getString(R.string.param_error), getString(R.string.error_empty_dict, "1"));
+            intent.putExtra(getString(R.string.param_error), getString(R.string.error_empty_dict, 1));
             startActivity(intent);
             finish();
             return;
