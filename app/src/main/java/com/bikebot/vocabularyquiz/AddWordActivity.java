@@ -18,9 +18,12 @@ public class AddWordActivity extends Activity {
         setContentView(R.layout.activity_add_word);
 
         // TODO: #5 Do not allow main thread queries. This is done everywhere, so look for occurrences!
-        dba = Room.databaseBuilder(
-                getApplicationContext(), VocabularyDB.class, "vocabulary-db"
-        ).allowMainThreadQueries().build().getDBAccessor();
+        dba = Room
+                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
+                .allowMainThreadQueries()
+                .addMigrations(VocabularyDB.MIGRATION_1_2)
+                .build()
+                .getDBAccessor();
     }
 
     public void saveWord(View view) {

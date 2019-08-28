@@ -7,6 +7,7 @@ android {
         applicationId "com.bikebot.vocabularyquiz"
         minSdkVersion 27
         targetSdkVersion 27
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionCode 1
         versionName "1.0"
 
@@ -15,6 +16,10 @@ android {
                 arguments = ["room.schemaLocation" : "$projectDir/schemas".toString()]
             }
         }
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 
     buildTypes {
@@ -26,6 +31,10 @@ android {
 }
 
 dependencies {
+    androidTestImplementation "com.android.support:support-annotations:$rootProject.supportVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.supportTestVersion"
+
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
 }

@@ -1,7 +1,9 @@
 package com.bikebot.vocabularyquiz;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.migration.Migration;
 
 /**
  * Created by pablo on 10/02/18.
@@ -11,8 +13,37 @@ import android.arch.persistence.room.RoomDatabase;
 
 // TODO: #11 allow synonyms, i.e. multiple meanings for a word and one meaning to match several words
 
-@Database(entities={Word.class, ConfigOption.class}, version=1, exportSchema=true)
+@Database(entities={Word.class, ConfigOption.class}, version=2, exportSchema=true)
 public abstract class VocabularyDB extends RoomDatabase {
+
+    /*
+    DB migration from v.1 to v.2
+
+    Changes: "translation" field cannot be null (@NonNull). Insert a message instead.
+     */
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase db) {
+            db.execSQL("DROP TABLE IF EXISTS tmp_migration_1_2");
+            db.execSQL(
+                    "CREATE TABLE tmp_migration_1_2 (" +
+                            "learntWord TEXT NOT NULL PRIMARY KEY, " +
+                            "translation TEXT NOT NULL," +
+                            "timesWrong INTEGER NOT NULL," +
+                            "timesRight INTEGER NOT NULL)"
+            );
+            db.execSQL(
+                    "UPDATE Word " +
+                    "SET translation = '(add a meaning to this word)' " +
+                            "WHERE translation IS NULL");
+            db.execSQL(
+                    "INSERT INTO " +
+                            "tmp_migration_1_2(learntWord, translation, timesWrong, timesRight) " +
+                            "SELECT learntWord, translation, timesWrong, timesRight FROM Word");
+            db.execSQL("DROP TABLE Word");
+            db.execSQL("ALTER TABLE tmp_migration_1_2 RENAME TO Word");
+        }
+    };
 
     public abstract DBAccessor getDBAccessor();
 }

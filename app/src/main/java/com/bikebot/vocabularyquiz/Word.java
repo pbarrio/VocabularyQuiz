@@ -26,6 +26,7 @@ public class Word implements Comparable<Word>, Serializable {
     public String learntWord; // The word in the language we are learning
 
     @ColumnInfo
+    @NonNull
     public String translation; // The word in the language we know
 
     @ColumnInfo
@@ -34,7 +35,7 @@ public class Word implements Comparable<Word>, Serializable {
     @ColumnInfo
     public int timesRight; // #times the word was answered right in a quiz
 
-    public Word(@NonNull String learntWord, String translation) {
+    public Word(@NonNull String learntWord, @NonNull String translation) {
         this.learntWord = learntWord;
         this.translation = translation;
         this.timesWrong = 0;

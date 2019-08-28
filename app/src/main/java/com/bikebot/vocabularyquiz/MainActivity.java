@@ -22,9 +22,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dba = Room.databaseBuilder(
-                getApplicationContext(), VocabularyDB.class, "vocabulary-db"
-        ).allowMainThreadQueries().build().getDBAccessor();
+        dba = Room
+                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
+                .allowMainThreadQueries()
+                .addMigrations(VocabularyDB.MIGRATION_1_2)
+                .build()
+                .getDBAccessor();
 
         resetTitle();
     }

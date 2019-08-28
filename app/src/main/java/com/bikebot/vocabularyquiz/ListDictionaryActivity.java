@@ -34,9 +34,12 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
 
         /* TODO: #8 this functionality is duplicated in several classes. Create a superclass to
              access the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
-        dba = Room.databaseBuilder(
-                getApplicationContext(), VocabularyDB.class, "vocabulary-db"
-        ).allowMainThreadQueries().build().getDBAccessor();
+        dba = Room
+                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
+                .allowMainThreadQueries()
+                .addMigrations(VocabularyDB.MIGRATION_1_2)
+                .build()
+                .getDBAccessor();
 
         words = new ArrayList<>(dba.getAllWords());
         Collections.sort(words);

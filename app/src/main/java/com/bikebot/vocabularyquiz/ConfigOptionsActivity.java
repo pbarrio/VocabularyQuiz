@@ -18,11 +18,12 @@ public class ConfigOptionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_options);
 
-        dba = Room.databaseBuilder(
-                getApplicationContext(),
-                VocabularyDB.class,
-                "vocabulary-db"
-        ).allowMainThreadQueries().build().getDBAccessor();
+        dba = Room
+                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
+                .allowMainThreadQueries()
+                .addMigrations(VocabularyDB.MIGRATION_1_2)
+                .build()
+                .getDBAccessor();
     }
 
     public void deleteDB(View view) {
