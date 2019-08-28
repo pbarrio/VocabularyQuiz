@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ListDictionaryActivity extends Activity implements ModifyDBValueDialogFragment.Listener{
@@ -32,14 +31,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_dictionary);
 
-        /* TODO: #8 this functionality is duplicated in several classes. Create a superclass to
-             access the DB (e.g. WordDBUser), and encapsulate the use of DBAccessor. */
-        dba = Room
-                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
-                .allowMainThreadQueries()
-                .addMigrations(VocabularyDB.MIGRATION_1_2)
-                .build()
-                .getDBAccessor();
+        dba = VocabularyDB.getDB(getApplicationContext()).getDBAccessor();
 
         words = new ArrayList<>(dba.getAllWords());
         Collections.sort(words);

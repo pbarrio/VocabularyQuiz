@@ -1,6 +1,5 @@
 package com.bikebot.vocabularyquiz;
 
-import android.arch.persistence.room.Room;
 import android.app.Activity;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
@@ -17,13 +16,7 @@ public class AddWordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_word);
 
-        // TODO: #5 Do not allow main thread queries. This is done everywhere, so look for occurrences!
-        dba = Room
-                .databaseBuilder(getApplicationContext(), VocabularyDB.class, "vocabulary-db")
-                .allowMainThreadQueries()
-                .addMigrations(VocabularyDB.MIGRATION_1_2)
-                .build()
-                .getDBAccessor();
+        dba = VocabularyDB.getDB(getApplicationContext()).getDBAccessor();
     }
 
     public void saveWord(View view) {

@@ -2,8 +2,10 @@ package com.bikebot.vocabularyquiz;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
+import android.content.Context;
 
 /**
  * Created by pablo on 10/02/18.
@@ -15,6 +17,8 @@ import android.arch.persistence.room.migration.Migration;
 
 @Database(entities={Word.class, ConfigOption.class}, version=2, exportSchema=true)
 public abstract class VocabularyDB extends RoomDatabase {
+
+    private static VocabularyDB INSTANCE;
 
     /*
     DB migration from v.1 to v.2
@@ -44,6 +48,23 @@ public abstract class VocabularyDB extends RoomDatabase {
             db.execSQL("ALTER TABLE tmp_migration_1_2 RENAME TO Word");
         }
     };
+
+    public static VocabularyDB getDB(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (VocabularyDB.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(
+                            context.getApplicationContext(),
+                            VocabularyDB.class,
+                            "vocabulary-db"
+                    )
+                    // TODO: #5 Do not allow main thread queries.
+                    .allowMainThreadQueries().addMigrations(MIGRATION_1_2).build();
+                }
+            }
+        }
+        return INSTANCE;
+    }
 
     public abstract DBAccessor getDBAccessor();
 }
