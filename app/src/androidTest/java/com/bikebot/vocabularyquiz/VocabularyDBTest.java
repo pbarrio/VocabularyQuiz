@@ -1,14 +1,12 @@
 package com.bikebot.vocabularyquiz;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.db.framework.FrameworkSQLiteOpenHelperFactory;
-import android.arch.persistence.room.testing.MigrationTestHelper;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory;
+import androidx.room.testing.MigrationTestHelper;
 import android.support.test.InstrumentationRegistry;
 
 import org.junit.Rule;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class VocabularyDBTest {
     private static final String TEST_DB_NAME = "TestAppDatabase.db";

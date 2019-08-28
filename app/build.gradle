@@ -31,10 +31,12 @@ android {
 }
 
 dependencies {
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
+
+    androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     androidTestImplementation "com.android.support:support-annotations:$rootProject.supportVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.supportTestVersion"
-
-    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
-    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
 }

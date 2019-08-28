@@ -25,8 +25,9 @@ task clean(type: Delete) {
 }
 
 ext {
+    appcompatVersion = '1.1.0'
     jUnitVersion = '4.12'
-    roomVersion = '1.1.1'
+    roomVersion = '2.2.1'
     supportTestVersion = '1.0.1'
     supportVersion = '26.1.0'
 }

@@ -2,7 +2,6 @@ package com.bikebot.vocabularyquiz;
 
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
