@@ -19,6 +19,7 @@ public class ResultsActivity extends Activity {
         TextView resultMsg = findViewById(R.id.resultMsg);
         int nQuestions = intent.getIntExtra(getString(R.string.param_n_answered), 0);
 
+        // TODO: #16 need to check this unchecked cast, and add '-Xlint:unchecked to the compiler
         // Receive incorrect words from the test to show the user as part of the results
         ArrayList<Word> incorrectWords =
                 (ArrayList<Word>)intent.getSerializableExtra(getString(R.string.param_incorrect));
