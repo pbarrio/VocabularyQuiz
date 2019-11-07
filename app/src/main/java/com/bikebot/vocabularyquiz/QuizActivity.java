@@ -1,12 +1,13 @@
 package com.bikebot.vocabularyquiz;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class QuizActivity extends Activity {
+public class QuizActivity extends AppCompatActivity {
 
     private static final int NWORDS = 10; // Number of words in a test
 

@@ -1,10 +1,11 @@
 package com.bikebot.vocabularyquiz;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ErrorMsgActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ErrorMsgActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

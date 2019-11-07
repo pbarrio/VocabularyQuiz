@@ -1,9 +1,10 @@
 package com.bikebot.vocabularyquiz;
 
 import android.os.Bundle;
-import android.app.Activity;
 
-public class ListConfigOptionsActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ListConfigOptionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
