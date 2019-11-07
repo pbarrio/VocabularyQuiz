@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public interface DBAccessor {
     void deleteWord(Word word);
 
     @Query("SELECT * FROM Word")
-    List<Word> getAllWords();
+    LiveData<List<Word>> getAllWords();
 
     @Query("DELETE FROM Word")
     void deleteAllWords();

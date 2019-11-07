@@ -58,9 +58,7 @@ public abstract class VocabularyDB extends RoomDatabase {
                             context.getApplicationContext(),
                             VocabularyDB.class,
                             "vocabulary-db"
-                    )
-                    // TODO: #5 Do not allow main thread queries.
-                    .allowMainThreadQueries().addMigrations(MIGRATION_1_2).build();
+                    ).addMigrations(MIGRATION_1_2).build();
                 }
             }
         }

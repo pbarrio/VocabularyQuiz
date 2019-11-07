@@ -6,30 +6,56 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class MainActivity extends AppCompatActivity {
 
     DBAccessor dba;
 
-    private void resetTitle () {
+    private void resetTitle () throws ExecutionException, InterruptedException {
         String title = getResources().getString(R.string.app_name);
-        String language = dba.getConfigOption(getString(R.string.language_learnt));
+
+        Callable<String> callable = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return dba.getConfigOption(getString(R.string.language_learnt));
+            }
+        };
+
+        Future<String> future = Executors.newSingleThreadExecutor().submit(callable);
+        String language = future.get();
         if (language != null)
             setTitle(title + " - " + language);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         dba = VocabularyDB.getDB(getApplicationContext()).getDBAccessor();
 
-        resetTitle();
+        try {
+            resetTitle();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        resetTitle();
+        try {
+            resetTitle();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void gotoAddWord(View view) {

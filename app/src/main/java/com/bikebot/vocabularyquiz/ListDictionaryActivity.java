@@ -2,9 +2,7 @@ package com.bikebot.vocabularyquiz;
 
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,15 +10,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
-public class ListDictionaryActivity extends Activity implements ModifyDBValueDialogFragment.Listener{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ListDictionaryActivity extends AppCompatActivity implements ModifyDBValueDialogFragment.Listener{
 
     private DBAccessor dba;
 
-    private ArrayList<Word> words;
     private WordAdapter adapter;
+    private DictionaryViewModel viewModel;
 
     // State for the context menu
     private Word currentlySelectedWord;
@@ -30,41 +33,19 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_dictionary);
 
-        dba = VocabularyDB.getDB(getApplicationContext()).getDBAccessor();
-
-        words = new ArrayList<>(dba.getAllWords());
-        Collections.sort(words);
-
-        if (words.size() == 0) {
-            Intent intent = new Intent(this, ErrorMsgActivity.class);
-            intent.putExtra(getString(R.string.param_error), getString(R.string.error_empty_dict, 1));
-            startActivity(intent);
-            finish();
-            return;
-        }
-
-        // Insert letter headers into the list
-        char currentHeader = 0;
-        for (int i = 0; i < words.size(); ++i) {
-
-            String learntWord = words.get(i).learntWord;
-            if (learntWord.length() == 0)
-                continue;
-
-            char firstCharOfWord = words.get(i).learntWord.charAt(0);
-            if (firstCharOfWord > currentHeader) {
-                currentHeader = firstCharOfWord;
-                words.add(
-                        i,
-                        new Word(String.valueOf(Character.toUpperCase(currentHeader)), "")
-                );
-            }
-        }
-
         // Create adapter to visualize the list
-        ListView wordViewList = (ListView) this.findViewById(R.id.layout_list_dict);
-        adapter = new WordAdapter(this, words);
+        ListView wordViewList = this.findViewById(R.id.layout_list_dict);
+        adapter = new WordAdapter(this, new ArrayList<Word>());
         wordViewList.setAdapter(adapter);
+
+        // Observe changes to the dictionary
+        viewModel = ViewModelProviders.of(this).get(DictionaryViewModel.class);
+        viewModel.getAllWords().observe(ListDictionaryActivity.this, new Observer<List<Word>>() {
+            @Override
+            public void onChanged(@Nullable List<Word> newWords) {
+                adapter.add(newWords);
+            }
+        });
 
         // Allow context menu over the list of words (to delete elements, modify them, etc.)
         registerForContextMenu(wordViewList);
@@ -75,7 +56,7 @@ public class ListDictionaryActivity extends Activity implements ModifyDBValueDia
                                     ContextMenu.ContextMenuInfo menuInfo) {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        currentlySelectedWord = words.get(info.position);
+        currentlySelectedWord = adapter.getWordAt(info.position);
 
         // If this is a header item, do not show the context menu
         if (currentlySelectedWord.isHeader())

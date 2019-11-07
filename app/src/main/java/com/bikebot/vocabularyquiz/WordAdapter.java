@@ -7,10 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<Word> {
@@ -18,7 +19,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
     private Context adapterContext;
     private List<Word> wordList;
 
-    public WordAdapter(@NonNull Context context, @LayoutRes ArrayList<Word> list) {
+    public WordAdapter(@NonNull Context context, List<Word> list) {
         super(context, 0 , list);
         adapterContext = context;
         wordList = list;
@@ -54,5 +55,14 @@ public class WordAdapter extends ArrayAdapter<Word> {
         }
 
         return listItem;
+    }
+
+    public void add(@NonNull Collection<Word> collection) {
+        super.addAll(collection);
+        Collections.sort(wordList);
+    }
+
+    public Word getWordAt(int position) {
+        return wordList.get(position);
     }
 }

@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -42,7 +41,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        List<Word> allWords = dba.getAllWords();
+        List<Word> allWords = dba.getAllWords().getValue();
         if (allWords.size() < QuizActivity.NWORDS) {
 
             Intent intent = new Intent(this, ErrorMsgActivity.class);
