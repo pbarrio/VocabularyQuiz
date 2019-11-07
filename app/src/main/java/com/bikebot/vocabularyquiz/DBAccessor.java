@@ -41,9 +41,6 @@ public interface DBAccessor {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertConfigOption(ConfigOption c);
 
-    @Query("SELECT * FROM ConfigOption")
-    ConfigOption[] getAllConfigOptions();
-
     @Query("SELECT value FROM ConfigOption WHERE option = :optionName")
     String getConfigOption(String optionName);
 }
