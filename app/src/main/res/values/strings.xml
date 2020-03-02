@@ -53,9 +53,8 @@
     </string>
     <string name="error_empty_string">I need a value for %1$s!</string>
     <string name="info_db_deleted">The database has been deleted</string>
-    <string name="info_word_saved">Word saved! Now add another word.</string>
-    <string name="info_word_exists">The word already exists in the dictionary.</string>
-    <string name="info_correct">Correct!</string>
+    <string name="info_word_saved">Word added</string>
+    <string name="info_correct">Done</string>
     <string name="info_incorrect">Wrong answer :(\nThe meaning of %1$s is %2$s.</string>
     <string name="info_quiz_result">
         You answered %1$d questions correctly of a total of %2$d.\nYou scored %3$.0f%%
